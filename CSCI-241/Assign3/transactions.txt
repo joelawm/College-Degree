@@ -1,0 +1,9 @@
+all
+number 138341
+number 242402
+specialty ADULT/INTERNAL MEDICINE
+specialty PODIATRY
+number 666666
+number 008450
+specialty HEMATOLOGY/ONCOLOGY
+specialty MAGIC

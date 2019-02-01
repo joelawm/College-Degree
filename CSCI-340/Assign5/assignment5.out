@@ -1,0 +1,25 @@
+Height: 5
+Size: 40
+In order traverse (displaying first 40 numbers): 
+   38   23   36   22   12   15   16    8
+   39    6   28   37   18   31   20   35
+   34   21    2    1    4   13   25   26
+   14   24   29    5   19   10   11    3
+   32   33   27   17    9    7    0   30
+
+
+Pre order traverse (displaying first 40 numbers): 
+    4   28   15   36   23   38   12   22
+   39    8   16    6   35   31   18   37
+   20    2   21   34    1   11   24   26
+   25   13   14   19    5   29   10   17
+   33   32    3   27    0    7    9   30
+
+
+Post order traverse (displaying first 40 numbers): 
+   38   23   22   12   36   16    8    6
+   39   15   37   18   20   31   34   21
+    1    2   35   28   13   25   14   26
+   29    5   10   19   24    3   32   27
+   33    9    7   30    0   17   11    4
+
