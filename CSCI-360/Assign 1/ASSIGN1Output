@@ -1,0 +1,140 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 10.20.20 JOB01350 ---- FRIDAY,    19 OCT 2018 ----
+ 10.20.20 JOB01350  IRR010I  USERID KC03IFA  IS ASSIGNED TO THIS JOB.
+ 10.20.20 JOB01350  ICH70001I KC03IFA  LAST ACCESS AT 10:20:01 ON FRIDAY, OCTOBER 19, 2018
+ 10.20.20 JOB01350  $HASP373 KCO3IFA  STARTED - INIT 1    - CLASS A        - SYS S0W1
+ 10.20.20 JOB01350  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 10.20.20 JOB01350  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 10.20.20 JOB01350  -KCO3IFA                       00     41 ******    .00     .0    110   0      0      0      0     0
+ 10.20.20 JOB01350  -KCO3IFA  ENDED.  NAME-JOE MEYER            TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 10.20.20 JOB01350  $HASP395 KCO3IFA  ENDED
+0------ JES2 JOB STATISTICS ------
+-  19 OCT 2018 JOB EXECUTION DATE
+-           96 CARDS READ
+-          140 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           14 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   JOB01350
+         2 //JSTEP01 EXEC PGM=ASSIST                                               00020001
+         3 //STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+         4 //SYSPRINT DD SYSOUT=*                                                  00040001
+         5 //SYSIN     DD *                                                        00050011
+           //*                                                                     00232025
+         6 //FT05F001   DD  *                                                      00233025
+         7 //FT06F001 DD SYSOUT=*                                                  00239925
+ ICH70001I KC03IFA  LAST ACCESS AT 10:20:01 ON FRIDAY, OCTOBER 19, 2018
+ IEF236I ALLOC. FOR KCO3IFA JSTEP01
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IEF237I JES2 ALLOCATED TO FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF142I KCO3IFA JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC00NIU.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03IFA.KCO3IFA.JOB01350.D0000103.?          SYSOUT        
+ IEF285I   KC03IFA.KCO3IFA.JOB01350.D0000101.?          SYSIN         
+ IEF285I   KC03IFA.KCO3IFA.JOB01350.D0000102.?          SYSIN         
+ IEF285I   KC03IFA.KCO3IFA.JOB01350.D0000104.?          SYSOUT        
+ IEF373I STEP/JSTEP01 /START 2018292.1020
+ IEF032I STEP/JSTEP01 /STOP  2018292.1020 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   264K  EXT:        0K  SYS:    11412K
+         ATB- REAL:                    12K  SLOTS:                     0K
+              VIRT- ALLOC:       2M SHRD:       0M
+ IEF375I  JOB/KCO3IFA /START 2018292.1020
+ IEF033I  JOB/KCO3IFA /STOP  2018292.1020 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ****************************************************************        00060001         
+                                       2 *                            *                                          00070001         
+                                       3 * ASSIGNMENT 6 - MULTIPLICATION AND DIVISION                            00080030         
+                                       4 *                            *                                          00090001         
+                                       5 * DATE DUE: 10/19/2018 *                                                00100030         
+                                       6 *               *                                                       00110006         
+                                       7 * NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001         
+                                       8 *               *                                                       00130006         
+                                       9 ****************************************************************        00140001         
+ 000000                               10 ASSIGN5  CSECT                                                          00150025         
+ 000000                               11          USING ASSIGN5,15    ESTABLISH ADDRESSABILITY ON REGISTER 15    00160025         
+                                      12 *                                                                       00170225         
+ 000000 1B22                          13          SR    2,2           R2 = 0 FOR RECORD COUNTING                 00181125         
+                                      14 *                                                                       00181225         
+ 000002 E000 F064 0050 00064          15          XREAD BUFFER,80     READ FIRST RECORD                          00181325         
+                                      16 *                                                                       00181425         
+ 000008 4740 F048            00048    17 LOOP1    BC    B'0100',ENDLOOP1  BRANCH TO END IF NO MORE RECORDS       00181525         
+                                      18 *                                                                       00181625         
+ 00000C 5A20 F060            00060    19          A     2,=F'1'       ADD 1 TO RECORD COUNTER                    00181725         
+                                      20 *                                                                       00181825         
+ 000010 D218 F152 F07C 00152 0007C    21          MVC   OEMNAME(25),BUFFER+24                                    00181930         
+                                      22 *                                                                       00182030         
+ 000016 5330 F064            00064    23          XDECI 3,BUFFER                                                 00182130         
+ 00001A 0000 0000            00000    24          XDECO 3,NUM1                                                   00182530         
+ ----->AS130 UNDEFINED SYMBOL            --------------------$--------------------------------------------------- <-ERROR         
+ 00001E 1A63                          25          AR    6,3                                                      00182630         
+                                      26 *                                                                       00182730         
+ 000020 5340 1000            00000    27          XDECI 4,0(,1)                                                  00182830         
+ 000024 0000 0000            00000    28          XDECO 4,NUM2                                                   00182930         
+ ----->AS130 UNDEFINED SYMBOL            --------------------$--------------------------------------------------- <-ERROR         
+ 000028 1A64                          29          AR    6,4                                                      00183030         
+                                      30 *                                                                       00183130         
+ 00002A 5350 1000            00000    31          XDECI 5,0(,1)                                                  00183230         
+ 00002E 0000 0000            00000    32          XDECO 5,NUM3                                                   00183330         
+ ----->AS130 UNDEFINED SYMBOL            --------------------$--------------------------------------------------- <-ERROR         
+ 000032 1A65                          33          AR    6,5                                                      00183430         
+                                      34 *                                                                       00183530         
+ 000034 0000 0000            00000    35          XDECO 6,SUM                                                    00183630         
+ ----->AS130 UNDEFINED SYMBOL            -------------------$---------------------------------------------------- <-ERROR         
+                                      36 *                                                                       00183730         
+                                      37                                                                         00183830         
+ ----->AS118 INVALID OP-CODE             ---------$-------------------------------------------------------------- <-ERROR         
+                                      38 *                                                                       00183930         
+ 000038 E020 F0B4 0085 000B4          39          XPRNT NUMLINE,133                                              00184030         
+                                      40 *                                                                       00184130         
+ 00003E E000 F064 0050 00064          41          XREAD BUFFER,80     READ NEXT RECORD                           00184230         
+                                      42 *                                                                       00184330         
+ 000044 47F0 F008            00008    43          BC    B'1111',LOOP1                                            00184430         
+                                      44 *                                                                       00184530         
+ 000048 07FE                          45 ENDLOOP1 BR    14      RETURN TO CALLER                                 00184630         
+                                      46 *                                                                       00184730         
+ 00004A 5C80 F060            00060    47          M     8,=F'1'                                                  00184830         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 00004E 1D82                          48          DR    8,2                                                      00184930         
+ 000050 0000 0000            00000    49          XDECO 9,AVG                                                    00185030         
+ ----->AS130 UNDEFINED SYMBOL            -------------------$---------------------------------------------------- <-ERROR         
+ 000054 0000 0000            00000    50          XDECO 8,REMAIN                                                 00185130         
+ ----->AS130 UNDEFINED SYMBOL            ----------------------$------------------------------------------------- <-ERROR         
+ 000058 0000 0000 0000 00000          51          XPRNT AVG,133                                                  00185230         
+ ----->AS130 UNDEFINED SYMBOL            -----------------$------------------------------------------------------ <-ERROR         
+                                      52 *                                                                       00186016         
+                                      53          LTORG                                                          00190025         
+ 000060 00000001                      54                =F'1'                                                                     
+                                      55 *                                                                       00190116         
+ 000064                               56 BUFFER   DS    CL80           INPUT RECORD BUFFER                       00191025         
+                                      57 *                                                                       00191125         
+ 0000B4 F0                            58 NUMLINE  DC    C'0'           DOUBLE SPACED CARRIAGE CONTROL            00192025         
+ 0000B5 4040404040404040              59          DC    22C' '                                                   00193025         
+ 0000CB                               60 PAYRTE   DS    CL12           OUTPUT FOR PAY RATE                       00200030         
+ 0000D7 4040404040404040              61          DC    13C' '                                                   00201025         
+ 0000E4                               62 HOURS    DS    CL12           OUTPUT FOR HOURS                          00202030         
+ 0000F0 4040404040404040              63          DC    13C' '                                                   00203025         
+ 0000FD                               64 ID       DS    CL12           OUTPUT FOR NUM3                           00204030         
+ 000109 4040404040404040              65          DC    13C' '                                                   00205025         
+ 000116                               66 DEDUCT   DS    CL12           OUTPUT FOR SUM                            00206030         
+ 000122 4040404040404040              67          DC    23C' '                                                   00207025         
+ 000139                               68 BONUS    DS    CL12           OUTPUT FOR THE AVERAGE                    00208030         
+ 000145 4040404040404040              69          DC    13C' '                                                   00209026         
+                                      70 *                                                                       00209130         
+ 000152                               71 OEMNAME  DS    CL25           OUT PUT FOR NAME OF THE EMPL.             00209230         
+ 00016B 4040404040404040              72          DC    13C' '                                                   00209326         
+                                      73 *                                                                       00210016         
+                                      74          END   ASSIGN5                                                  00220025         
+0***     8 STATEMENTS FLAGGED -  NO   WARNINGS,     8 ERRORS                                                                      
+0***** NUMBER OF ERRORS EXCEEDS LIMIT OF  NO   ERRORS - PROGRAM EXECUTION DELETED *****                                           
+0*** DYNAMIC CORE AREA USED:  LOW:    3284 HIGH:     564 LEAVING:  489720 FREE BYTES. AVERAGE:       51 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.000 SECS,    75000 STATEMENTS/SEC ***                                                                   

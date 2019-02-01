@@ -1,0 +1,24 @@
+MariaDB [z1788150]> use z1788150;
+Database changed
+MariaDB [z1788150]> select * from Fall;
+Empty set (0.00 sec)
+
+MariaDB [z1788150]> insert into Fall values(4, 'dataD');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [z1788150]> insert into Fall values(5, 'dataE');
+Query OK, 1 row affected (0.10 sec)
+
+MariaDB [z1788150]> select * from Fall;
++----+-------+
+| pk | data  |
++----+-------+
+|  1 | dataA |
+|  2 | dataB |
+|  3 | dataC |
+|  4 | dataD |
+|  5 | dataE |
++----+-------+
+5 rows in set (0.00 sec)
+
+MariaDB [z1788150]> \t

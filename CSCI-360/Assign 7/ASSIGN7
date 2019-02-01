@@ -1,0 +1,226 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 22.07.45 JOB08959 ---- SATURDAY,  03 NOV 2018 ----
+ 22.07.45 JOB08959  IRR010I  USERID KC03IFA  IS ASSIGNED TO THIS JOB.
+ 22.07.45 JOB08959  ICH70001I KC03IFA  LAST ACCESS AT 22:04:23 ON SATURDAY, NOVEMBER 3, 2018
+ 22.07.45 JOB08959  $HASP373 KCO3IFA  STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 22.07.45 JOB08959  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 22.07.45 JOB08959  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 22.07.45 JOB08959  -KCO3IFA                       00     52 ******    .00     .0    191   0      0      0      0     0
+ 22.07.45 JOB08959  -KCO3IFA  ENDED.  NAME-JOE MEYER            TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 22.07.45 JOB08959  $HASP395 KCO3IFA  ENDED
+0------ JES2 JOB STATISTICS ------
+-  03 NOV 2018 JOB EXECUTION DATE
+-          157 CARDS READ
+-          226 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           25 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   JOB08959
+         2 //JSTEP01 EXEC PGM=ASSIST                                               00020001
+         3 //STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+         4 //SYSPRINT DD SYSOUT=*                                                  00040001
+         5 //SYSIN     DD *                                                        00050011
+           //*                                                                     00232025
+         6 //FT05F001 DD DSN=KC02322.CSCI360.DATAFA18(DATA6),DISP=SHR              00233032
+           /*                                                                      00239825
+         7 //FT06F001 DD SYSOUT=*                                                  00239925
+           //*                                                                     00240032
+         8 //SYSPRINT DD SYSOUT=*                                                  00250032
+ ICH70001I KC03IFA  LAST ACCESS AT 22:04:23 ON SATURDAY, NOVEMBER 3, 2018
+ IEF236I ALLOC. FOR KCO3IFA JSTEP01
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF142I KCO3IFA JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC00NIU.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03IFA.KCO3IFA.JOB08959.D0000102.?          SYSOUT        
+ IEF285I   KC03IFA.KCO3IFA.JOB08959.D0000101.?          SYSIN         
+ IGD104I KC02322.CSCI360.DATAFA18                     RETAINED,  DDNAME=FT05F001
+ IEF285I   KC03IFA.KCO3IFA.JOB08959.D0000103.?          SYSOUT        
+ IEF285I   KC03IFA.KCO3IFA.JOB08959.D0000104.?          SYSOUT        
+ IEF373I STEP/JSTEP01 /START 2018307.2207
+ IEF032I STEP/JSTEP01 /STOP  2018307.2207 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        0K  SYS:    11856K
+         ATB- REAL:                    12K  SLOTS:                     0K
+              VIRT- ALLOC:       2M SHRD:       0M
+ IEF375I  JOB/KCO3IFA /START 2018307.2207
+ IEF033I  JOB/KCO3IFA /STOP  2018307.2207 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+0                                                                                                                                 
+0                                                                                                               PAGE    1         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ****************************************************************        00060001         
+                                       2 *                            *                                          00070001         
+                                       3 * ASSIGNMENT 7 - PAGE AND COLUMN HEADERS *                              00080077         
+                                       4 *                            *                                          00090001         
+                                       5 * DATE DUE: 11/03/2018 *                                                00100075         
+                                       6 *               *                                                       00110006         
+                                       7 * NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001         
+                                       8 *               *                                                       00130006         
+                                       9 ****************************************************************        00140001         
+ 000000                               10 ASSIGN6  CSECT                                                          00150032         
+ 000000                               11          USING ASSIGN6,15    ESTABLISH ADDRESSABILITY ON REGISTER 15    00160032         
+                                      12 *                                                                       00170225         
+ 000000 1B22                          13          SR    2,2           R2 = 0 FOR RECORD COUNTING                 00181125         
+ 000002 1BDD                          14          SR    13,13                                                    00181261         
+                                      15 *                                                                       00181425         
+ 000004 E000 F09C 0050 0009C          16          XREAD BUFFER,80     READ FIRST RECORD                          00181525         
+ 00000A E020 F160 0085 00160          17          XPRNT OUTPUTON,133  PRINT OUT THE 1ST LINE                     00181677         
+ 000010 E020 F1C5 0085 001C5          18          XPRNT OUTPUTTW,133  PRINT OUT THE 2ND LINE                     00181777         
+                                      19 *                                                                       00181825         
+ 000016 4740 F066            00066    20 LOOP1    BC    B'0100',ENDLOOP1  BRANCH TO END IF NO MORE RECORDS       00181925         
+                                      21 *                                                                       00182025         
+ 00001A 5A20 F098            00098    22          A     2,=F'1'       ADD 1 TO RECORD COUNTER                    00182125         
+                                      23 *                                                                       00182225         
+ 00001E D218 F142 F0B4 00142 000B4    24          MVC   OEMNAME(25),BUFFER+24                                    00182330         
+                                      25 *                                                                       00182430         
+ 000024 5330 F09C            0009C    26          XDECI 3,BUFFER                                                 00182530         
+ 000028 5230 F0ED            000ED    27          XDECO 3,NUM1                                                   00182630         
+                                      28 *                                                                       00182730         
+ 00002C 5340 1000            00000    29          XDECI 4,0(,1)                                                  00182830         
+ 000030 5240 F0FE            000FE    30          XDECO 4,NUM2                                                   00182930         
+                                      31 *                                                                       00183130         
+ 000034 5350 1000            00000    32          XDECI 5,0(,1)                                                  00183230         
+ 000038 5250 F10F            0010F    33          XDECO 5,NUM3                                                   00183330         
+                                      34 *                                                                       00183530         
+ 00003C 5360 1000            00000    35          XDECI 6,0(,1)                                                  00183631         
+ 000040 5260 F120            00120    36          XDECO 6,NUM4                                                   00183731         
+                                      37 *                                                                       00183831         
+ 000044 5370 1000            00000    38          XDECI 7,0(,1)                                                  00183931         
+ 000048 5270 F131            00131    39          XDECO 7,NUM5                                                   00184031         
+                                      40 *                                                                       00184130         
+ 00004C 1AD7                          41          AR    13,7          ADD THE BONUS TOGETHER                     00184262         
+                                      42 *                                                                       00184356         
+ 00004E 18B4                          43          LR    11,4                                                     00184470         
+ 000050 1CA5                          44          MR    10,5                                                     00184568         
+ 000052 1BB6                          45          SR    11,6                                                     00184670         
+ 000054 1AB7                          46          AR    11,7                                                     00184770         
+                                      47 *                                                                       00184830         
+ 000056 E020 F0EC 0085 000EC          48          XPRNT NUMLINE,133                                              00184930         
+                                      49 *                                                                       00185050         
+ 00005C E000 F09C 0050 0009C          50          XREAD BUFFER,80     READ NEXT RECORD                           00185130         
+                                      51 *                                                                       00185630         
+ 000062 47F0 F016            00016    52          BC    B'1111',LOOP1                                            00185730         
+1                                                                                                               PAGE    2         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                      53 *                                                                       00185830         
+ 000066 18CB                          54 ENDLOOP1 LR    12,11                                                    00185974         
+ 000068 5CC0 F098            00098    55          M     12,=F'1'                                                 00186074         
+ 00006C 1DC2                          56          DR    12,2                                                     00186174         
+                                      57 *                                                                       00186216         
+ 00006E 52C0 F3AB            003AB    58          XDECO 12,AVGROSS    SAVES THE AVERAGE GROSS TO BE OUT          00187072         
+ 000072 5220 F245            00245    59          XDECO 2,COUNT       SAVES THE COUNT TO BE OUTPUT               00187169         
+ 000076 5280 F331            00331    60          XDECO 8,TOTGROSS   SAVES THE TOTGROSS TO BE OUT                00187273         
+ 00007A 52D0 F2B9            002B9    61          XDECO 13,BONUS      SAVES THE BONUS TO BE OUTPUT               00187369         
+                                      62 *                                                                       00187532         
+ 00007E E020 F22E 0085 0022E          63          XPRNT EMPCNT,133    EMPLOYEE COUNT                             00187637         
+ 000084 E020 F2AB 0085 002AB          64          XPRNT TOTALBNS,133  TOTAL BONUS                                00187745         
+ 00008A E020 F31F 0085 0031F          65          XPRNT TOTALGRS,133  TOTALGROSS                                 00187845         
+ 000090 E020 F397 0085 00397          66          XPRNT AVGGROSS,133  AVERAGE GROSS                              00187944         
+ 000096 07FE                          67          BR    14                                                       00188131         
+                                      68 *                                                                       00189031         
+                                      69          LTORG                                                          00190025         
+ 000098 00000001                      70                =F'1'                                                                     
+                                      71 *                                                                       00190116         
+ 00009C                               72 BUFFER   DS    CL80           INPUT RECORD BUFFER                       00191025         
+                                      73 *                                                                       00191125         
+ 0000EC F0                            74 NUMLINE  DC    C'0'           DOUBLE SPACED CARRIAGE CONTROL            00192025         
+ 0000ED                               75 NUM1     DS    CL12           OUTPUT FOR PAY RATE                       00200031         
+ 0000F9 4040404040                    76          DC    5C' '                                                    00201068         
+ 0000FE                               77 NUM2     DS    CL12           OUTPUT FOR HOURS                          00202031         
+ 00010A 4040404040                    78          DC    5C' '                                                    00203068         
+ 00010F                               79 NUM3     DS    CL12           OUTPUT FOR EMPLYEE COUNT                  00204079         
+ 00011B 4040404040                    80          DC    5C' '                                                    00205068         
+ 000120                               81 NUM4     DS    CL12           OUTPUT FOR SUM                            00206033         
+ 00012C 4040404040                    82          DC    5C' '                                                    00207068         
+ 000131                               83 NUM5     DS    CL12           OUTPUT FOR THE AVERAGE                    00208033         
+ 00013D 4040404040                    84          DC    5C' '                                                    00209068         
+                                      85 *                                                                       00209130         
+ 000142                               86 OEMNAME  DS    CL25           OUT PUT FOR NAME OF THE EMPL.             00209230         
+ 00015B 4040404040                    87          DC    5C' '                                                    00209368         
+                                      88 ************OUPUT************                                           00210032         
+ 000160                               89 OUTPUTON DS    C'0'                                                     00210175         
+ 000161 40                            90          DC    1C' '          CARIAGE CONTROL TOP OF THE PAGE           00210276         
+ 000162 C5D4D7D3D6E8C5C5              91          DC    C'EMPLOYEE NAME'                                         00210375         
+ 00016F 4040404040                    92          DC    5C' '                                                    00210476         
+ 000174 C5D4D7D3D6E8C5C5              93          DC    C'EMPLOYEE ID'                                           00210575         
+ 00017F 4040404040                    94          DC    5C' '                                                    00210676         
+ 000184 D7D3C1E840D9C1E3              95          DC    C'PLAY RATE'                                             00210775         
+ 00018D 4040404040                    96          DC    5C' '                                                    00210876         
+ 000192 C8D6E4D9E240E6D6              97          DC    C'HOURS WORKED'                                          00210975         
+ 00019E 4040404040                    98          DC    5C' '                                                    00211076         
+ 0001A3 C4C5C4E4C3E3C9D6              99          DC    C'DEDUCTIONS'                                            00211175         
+ 0001AD 4040404040                   100          DC    5C' '                                                    00211276         
+ 0001B2 C2D6D5E4E2                   101          DC    C'BONUS'                                                 00211375         
+ 0001B7 4040404040                   102          DC    5C' '                                                    00211476         
+ 0001BC C7D9D6E2E240D7C1             103          DC    C'GROSS PAY'                                             00211575         
+                                     104 *                                                                       00211675         
+ 0001C5                              105 OUTPUTTW DS    C'0'                                                     00211776         
+ 0001C6 40                           106          DC    1C' '                                                    00211876         
+ 0001C7 6D6D6D6D6D6D6D6D             107          DC    C'_____________'                                         00211976         
+ 0001D4 4040404040                   108          DC    5C' '                                                    00212076         
+ 0001D9 6D6D6D6D6D6D6D6D             109          DC    C'___________'                                           00212176         
+1                                                                                                               PAGE    3         
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+ 0001E4 4040404040                   110          DC    5C' '                                                    00212276         
+ 0001E9 6D6D6D6D6D6D6D6D             111          DC    C'_________'                                             00212376         
+ 0001F2 4040404040                   112          DC    5C' '                                                    00212476         
+ 0001F7 6D6D6D6D6D6D6D6D             113          DC    C'____________'                                          00212578         
+ 000203 4040404040                   114          DC    5C' '                                                    00212676         
+ 000208 6D6D6D6D6D6D6D6D             115          DC    C'_____________'                                         00212776         
+ 000215 4040404040                   116          DC    5C' '                                                    00212876         
+ 00021A 6D6D6D6D6D                   117          DC    C'_____'                                                 00212976         
+ 00021F 4040404040                   118          DC    5C' '                                                    00213076         
+ 000224 6D6D6D6D6D6D6D6D             119          DC    C'__________'                                            00213176         
+                                     120 *                                                                       00213276         
+ 00022E                              121 EMPCNT   DS    C'0'           EMPLOYEE COUNT TOTAL                      00213578         
+ 00022F E3D6E3C1D340C5D4             122          DC    C'TOTAL EMPLOYEE COUNT:'                                 00213678         
+ 000244 40                           123          DC    1C' '          SPACE                                     00213778         
+ 000245                              124 COUNT    DS    CL12           ACTUAL NUMBER TO PRINT OFF                00213878         
+ 000251 4040404040404040             125          DC    90C' '                                                   00213978         
+                                     126 *                                                                       00214078         
+ 0002AB                              127 TOTALBNS DS    C'0'           STORAGE FOR THE TOTAL BONUS               00214178         
+ 0002AC E3D6E3C1D340C2D6             128          DC    C'TOTAL BONUS:'                                          00214278         
+ 0002B8 40                           129          DC    1C' '                                                    00214378         
+ 0002B9                              130 BONUS    DS    CL12           OUTPUT STORAGE FOR THE REGISTER           00214478         
+ 0002C5 4040404040404040             131          DC    90C' '                                                   00214578         
+                                     132 *                                                                       00214678         
+ 00031F                              133 TOTALGRS DS    C'0'           STORAGE FOR THE TOTAL GROSS PAY           00214778         
+ 000320 E3D6E3C1D340C7D9             134          DC    C'TOTAL GROSS PAY:'                                      00214878         
+ 000330 40                           135          DC    1C' '                                                    00214978         
+ 000331                              136 TOTGROSS DS    CL12           STORAGE FOR THE BONUS REGISTER            00215078         
+ 00033D 4040404040404040             137          DC    90C' '                                                   00215178         
+                                     138 *                                                                       00215278         
+ 000397                              139 AVGGROSS DS    C'0'           STORAGE FOR AVERAGE GROSS                 00215378         
+ 000398 C1E5C5D9C1C7C540             140          DC    C'AVERAGE GROSS PAY:'                                    00215478         
+ 0003AA 40                           141          DC    1C' '                                                    00215578         
+ 0003AB                              142 AVGROSS  DS    CL12           STORAGE FOR AVERAGE GROSS                 00215678         
+ 0003B7 4040404040404040             143          DC    90C' '                                                   00215778         
+                                     144 *                                                                       00215878         
+                                     145 ************ENDOUTPUT*********                                          00216032         
+                                     146          END   ASSIGN6                                                  00220032         
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+0*** DYNAMIC CORE AREA USED:  LOW:    7784 HIGH:     748 LEAVING:  485036 FREE BYTES. AVERAGE:       58 BYTES/STMT ***            
+0*** ASSEMBLY TIME =    0.001 SECS,   147000 STATEMENTS/SEC ***                                                                   
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+  EMPLOYEE NAME     EMPLOYEE ID     PLAY RATE     HOURS WORKED     DEDUCTIONS     BONUS     GROSS PAY5 _____________     _________
+  _____________     ___________     _________     ____________     _____________     _____     __________5TOTAL EMPLOYEE COUNT: 55
+0       12345               15               80               25              500     JOAN TOWER                    5 EMPLOYEE NAM
+0       23456               19               80                0               10     WOLFGANG AMADEUS MOZART       5 EMPLOYEE NAM
+0       22132               10               80               31              200     RICHARD STRAUSS               5 EMPLOYEE NAM
+0       65465               22               80               15              900     AMY BEACH                     5 EMPLOYEE NAM
+0       44560               23               28               34               70     DAME ETHEL SMYTHE             5 EMPLOYEE NAM
+0       99870               22               80               21                0     PETER ILYICH TCHAIKOVSKY      5 EMPLOYEE NAM
+1       14966               20               78                0              210     ANTON BRUCKNER                5 EMPLOYEE NAM
+ TOTAL EMPLOYEE COUNT:            7                                                                                          5TOTA
+ TOTAL BONUS:          270                                                                                          5TOTAL GROSS P
+ TOTAL GROSS PAY:   -185273100                                                                                          5AVERAGE G
+ AVERAGE GROSS PAY:            0                                                                                          55555555
+0*** EXECUTION TIME =    0.001 SECS.       165 INSTRUCTIONS EXECUTED -   165000 INSTRUCTIONS/SEC ***                              
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

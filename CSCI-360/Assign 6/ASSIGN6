@@ -1,0 +1,125 @@
+//KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   00010007
+//JSTEP01 EXEC PGM=ASSIST                                               00020001
+//STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+//SYSPRINT DD SYSOUT=*                                                  00040001
+//SYSIN     DD *                                                        00050011
+****************************************************************        00060001
+*                            *                                          00070001
+* ASSIGNMENT 6 - MULTIPLICATION AND DIVISION                            00080030
+*                            *                                          00090001
+* DATE DUE: 10/19/2018 *                                                00100030
+*               *                                                       00110006
+* NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001
+*               *                                                       00130006
+****************************************************************        00140001
+ASSIGN6  CSECT                                                          00150032
+         USING ASSIGN6,15    ESTABLISH ADDRESSABILITY ON REGISTER 15    00160032
+*                                                                       00170225
+         SR    2,2           R2 = 0 FOR RECORD COUNTING                 00181125
+         SR    13,13                                                    00181261
+*                                                                       00181425
+         XREAD BUFFER,80     READ FIRST RECORD                          00181525
+*                                                                       00181625
+LOOP1    BC    B'0100',ENDLOOP1  BRANCH TO END IF NO MORE RECORDS       00181725
+*                                                                       00181825
+         A     2,=F'1'       ADD 1 TO RECORD COUNTER                    00181925
+*                                                                       00182025
+         MVC   OEMNAME(25),BUFFER+24                                    00182130
+*                                                                       00182230
+         XDECI 3,BUFFER                                                 00182330
+         XDECO 3,NUM1                                                   00182530
+*                                                                       00182730
+         XDECI 4,0(,1)                                                  00182830
+         XDECO 4,NUM2                                                   00182930
+*                                                                       00183130
+         XDECI 5,0(,1)                                                  00183230
+         XDECO 5,NUM3                                                   00183330
+*                                                                       00183530
+         XDECI 6,0(,1)                                                  00183631
+         XDECO 6,NUM4                                                   00183731
+*                                                                       00183831
+         XDECI 7,0(,1)                                                  00183931
+         XDECO 7,NUM5                                                   00184031
+*                                                                       00184130
+         AR    13,7          ADD THE BONUS TOGETHER                     00184262
+*                                                                       00184356
+         LR    11,4                                                     00184470
+         MR    10,5                                                     00184568
+         SR    11,6                                                     00184670
+         AR    11,7                                                     00184770
+*                                                                       00184830
+         XPRNT NUMLINE,133                                              00184930
+*                                                                       00185050
+         XREAD BUFFER,80     READ NEXT RECORD                           00185130
+*                                                                       00185230
+         BC    B'1111',LOOP1                                            00185330
+*                                                                       00185430
+ENDLOOP1 LR    12,11                                                    00185574
+         M     12,=F'1'                                                 00185674
+         DR    12,2                                                     00185774
+*                                                                       00186016
+         XDECO 12,AVGROSS    SAVES THE AVERAGE GROSS TO BE OUT          00187072
+         XDECO 2,COUNT       SAVES THE COUNT TO BE OUTPUT               00187169
+         XDECO 8,TOTGROSS   SAVES THE TOTGROSS TO BE OUT                00187273
+         XDECO 13,BONUS      SAVES THE BONUS TO BE OUTPUT               00187369
+*                                                                       00187532
+         XPRNT EMPCNT,133    EMPLOYEE COUNT                             00187637
+         XPRNT TOTALBNS,133  TOTAL BONUS                                00187745
+         XPRNT TOTALGRS,133  TOTALGROSS                                 00187845
+         XPRNT AVGGROSS,133  AVERAGE GROSS                              00187944
+         BR    14                                                       00188131
+*                                                                       00189031
+         LTORG                                                          00190025
+*                                                                       00190116
+BUFFER   DS    CL80           INPUT RECORD BUFFER                       00191025
+*                                                                       00191125
+NUMLINE  DC    C'0'           DOUBLE SPACED CARRIAGE CONTROL            00192025
+         DC    5C' '                                                    00193068
+NUM1     DS    CL12           OUTPUT FOR PAY RATE                       00200031
+         DC    5C' '                                                    00201068
+NUM2     DS    CL12           OUTPUT FOR HOURS                          00202031
+         DC    5C' '                                                    00203068
+NUM3     DS    CL12           OUTPUT FOR NUM3                           00204031
+         DC    5C' '                                                    00205068
+NUM4     DS    CL12           OUTPUT FOR SUM                            00206033
+         DC    5C' '                                                    00207068
+NUM5     DS    CL12           OUTPUT FOR THE AVERAGE                    00208033
+         DC    5C' '                                                    00209068
+*                                                                       00209130
+OEMNAME  DS    CL25           OUT PUT FOR NAME OF THE EMPL.             00209230
+         DC    5C' '                                                    00209368
+************OUPUT************                                           00210032
+EMPCNT   DS    C'0'           EMPLOYEE COUNT TOTAL                      00211043
+         DC    C'TOTAL EMPLOYEE COUNT:'                                 00212040
+         DC    1C' '          SPACE                                     00212142
+COUNT    DS    CL12           ACTUAL NUMBER TO PRINT OFF                00212237
+         DC    90C' '         GETTING RID OF THE 5'S                    00212343
+*                                                                       00212442
+TOTALBNS DS    C'0'           STORAGE FOR THE TOTAL BONUS               00212545
+         DC    C'TOTAL BONUS:'                                          00212645
+         DC    1C' '                                                    00212745
+BONUS    DS    CL12           OUTPUT STORAGE FOR THE REGISTER           00212845
+         DC    90C' '                                                   00212945
+*                                                                       00213031
+TOTALGRS DS    C'0'           STORAGE FOR THE TOTAL GROSS PAY           00213145
+         DC    C'TOTAL GROSS PAY:'                                      00213245
+         DC    1C' '                                                    00213345
+TOTGROSS DS    CL12           STORAGE FOR THE BONUS REGISTER            00213445
+         DC    90C' '                                                   00213545
+*                                                                       00213635
+AVGGROSS DS    C'0'           STORAGE FOR AVERAGE GROSS                 00213745
+         DC    C'AVERAGE GROSS PAY:'                                    00213845
+         DC    1C' '                                                    00213945
+AVGROSS  DS    CL12           STORAGE FOR AVERAGE GROSS                 00214046
+         DC    90C' '                                                   00214145
+*                                                                       00214235
+************ENDOUTPUT*********                                          00215032
+         END   ASSIGN6                                                  00220032
+/*                                                                      00230002
+//*                                                                     00232025
+//FT05F001 DD DSN=KC02322.CSCI360.DATAFA18(DATA6),DISP=SHR              00233032
+/*                                                                      00239825
+//FT06F001 DD SYSOUT=*                                                  00239925
+//*                                                                     00240032
+//SYSPRINT DD SYSOUT=*                                                  00250032
+//                                                                      00260032

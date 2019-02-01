@@ -1,0 +1,16 @@
+1. What is result of the select statement, and why?
+It is is blank, this is because we never commited any of the changes.
+
+2. What is result of the select statement, and why?
+The results shows 5 data entrys, this is because the first window did a commit statment and the second one did 2 inserts
+directly to the database. Showing all 5 of the values inserted.
+
+3. What is result of the select statement, and why?
+There is no table called spring so it gives a error telling that there is not database called spring.
+
+Note void the top answer if you meant to put Fall there in which it actually changed the data. Some of the data entered was
+incorrect. So 2 and 4 both have change or 2. Also 3 is completely remooooooved frm the database.
+
+4. What is result of the select statement, and why?
+The rollback effectively removed the errors made in the database. So insteda of commiting the changes and fixing them
+rollback; essentialy removes the errors and doesnt commit them.

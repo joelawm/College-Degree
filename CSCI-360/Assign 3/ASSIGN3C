@@ -1,0 +1,37 @@
+//KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   00010007
+//JSTEP01 EXEC PGM=ASSIST                                               00020001
+//STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+//SYSPRINT DD SYSOUT=*                                                  00040001
+//SYSIN     DD *                                                        00050011
+****************************************************************        00060001
+*                            *                                          00070001
+* ASSIGNMENT 3C - BASIC ASSEMBLER *                                     00080016
+*                            *                                          00090001
+* DATE DUE: 09/20/2018 *                                                00100012
+*               *                                                       00110006
+* NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001
+*               *                                                       00130006
+****************************************************************        00140001
+MAIN  CSECT                                                             00150002
+      USING MAIN,15 ESTABLISH ADDRESSABILITY ON REGISTER 15             00160015
+      L     7,(0)  PUT NUM1 INTO REGISTER 7                             00170017
+      L     8,(4)  PUT NUM2 INTO REGISTER 8                             00170117
+      SR    7,8    ADDS REGISTER 7 AND 8                                00170217
+      L     4,(10) PUT NUM1 INTO REGISTER 4                             00171017
+      L     5,(15) PUT NUM2 INTO REGISTER 5                             00180017
+      AR    4,5    ADD REGISTER 4 AND 5                                 00181017
+      ST    4,(20) STORE X INTO RESULTS1                                00181117
+      ST    7,(24) STORE X INTO RESULTS2                                00181217
+      XDUMP RESULTS1,8 DUMP THE REGISTER CONTENTS                       00182016
+      XDUMP RESULTS2,8 DUMP REGISTER CONTENTS                           00182116
+      BR    14     RETURN TO THE CALLER                                 00183015
+*                                                                       00190015
+      LTORG                                                             00190115
+*                                                                       00191015
+NUM1  DC    F'142' HOLDS THE INTERGER 142                               00192015
+NUM2  DC    F'37'  HOLDS THE INTERGER 37                                00193015
+RESULTS1 DS CL4'EMPTY' DECLARE STORAGE RESULTS                          00200016
+RESULTS2 DS CL4'EMPTY' DECLARE STORAGE RESULTS                          00210016
+    END MAIN                                                            00220002
+/*                                                                      00230002
+//                                                                      00240002

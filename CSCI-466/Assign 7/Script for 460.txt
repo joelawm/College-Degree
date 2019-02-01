@@ -1,0 +1,59 @@
+Joe Meyer Table Creation Script
+
+CREATE TABLE Dogs(
+	dog_id int NOT NULL AUTO_INCREMENT,
+        breed varchar(255),
+        name varchar(255),
+	PRIMARY KEY (dog_id)
+);
+
+INSERT INTO Dogs (breed, name)
+VALUES ("Aussie", "Jeff");
+INSERT INTO Dogs (breed, name)
+VALUES ("Huskie", "Phill");
+INSERT INTO Dogs (breed, name)
+VALUES ("Boston", "Loki");
+INSERT INTO Dogs (breed, name)
+VALUES ("Pug", "Bo");
+INSERT INTO Dogs (breed, name)
+VALUES ("Wiener Dog", "Giraffe");
+
+select * from Dogs;
+
+CREATE TABLE Visits(
+	visit_id int NOT NULL AUTO_INCREMENT,
+	date date,
+	dog_id int,
+	FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),
+	PRIMARY KEY (visit_id)
+);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 1);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 2);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 3);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 2);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 4);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 5);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 5);
+INSERT INTO Visits (date, dog_id)
+VALUES (CURDATE(), 1);
+
+select * from Visits;
+
+ALTER TABLE Visits
+ADD atime time;
+
+UPDATE Visits SET atime = CURTIME();
+
+select * from Visits;
+
+select d.name, COUNT(v.dog_id) FROM Dogs d, Visits v GROUP BY d.name;
+
+DROP TABLE Dogs;
+DROP TABLE Visits;

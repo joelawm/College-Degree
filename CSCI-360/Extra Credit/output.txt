@@ -1,0 +1,141 @@
+
+                     J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+
+  
+ 00.25.14 JOB01120 ---- SATURDAY,  08 DEC 2018 ----
+ 00.25.14 JOB01120  IRR010I  USERID KC03IFA  IS ASSIGNED TO THIS JOB.
+ 00.25.14 JOB01120  ICH70001I KC03IFA  LAST ACCESS AT 00:24:27 ON SATURDAY, DECEMBER 8, 2018
+ 00.25.14 JOB01120  $HASP373 KCO3IFA  STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 00.25.14 JOB01120  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 00.25.14 JOB01120  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 00.25.14 JOB01120  -KCO3IFA                       00     36 ******    .00     .0    598   0      0      0      0     0
+ 00.25.14 JOB01120  -KCO3IFA  ENDED.  NAME-JOE MEYER            TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 00.25.14 JOB01120  $HASP395 KCO3IFA  ENDED
+
+ ------ JES2 JOB STATISTICS ------
+
+
+   08 DEC 2018 JOB EXECUTION DATE
+
+
+            60 CARDS READ
+
+
+           115 SYSOUT PRINT RECORDS
+
+
+             0 SYSOUT PUNCH RECORDS
+
+
+            11 SYSOUT SPOOL KBYTES
+
+
+          0.00 MINUTES EXECUTION TIME
+         1 //KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   JOB01120
+         2 //JSTEP01 EXEC PGM=ASSIST                                               00020001
+         3 //STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+         4 //SYSPRINT DD SYSOUT=*                                                  00040001
+         5 //SYSIN     DD *                                                        00050011
+           //*                                                                     00232025
+         6 //FT05F001 DD DSN=KC02322.CSCI360.DATAFA18(DATA9),DISP=SHR              00233099
+           /*                                                                      00239825
+         7 //FT06F001 DD SYSOUT=*                                                  00239925
+           //*                                                                     00240032
+         8 //SYSPRINT DD SYSOUT=*                                                  00250032
+ ICH70001I KC03IFA  LAST ACCESS AT 00:24:27 ON SATURDAY, DECEMBER 8, 2018
+ IEF236I ALLOC. FOR KCO3IFA JSTEP01
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF142I KCO3IFA JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC00NIU.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+ IEF285I   KC03IFA.KCO3IFA.JOB01120.D0000102.?          SYSOUT        
+ IEF285I   KC03IFA.KCO3IFA.JOB01120.D0000101.?          SYSIN         
+ IGD104I KC02322.CSCI360.DATAFA18                     RETAINED,  DDNAME=FT05F001
+ IEF285I   KC03IFA.KCO3IFA.JOB01120.D0000103.?          SYSOUT        
+ IEF285I   KC03IFA.KCO3IFA.JOB01120.D0000104.?          SYSOUT        
+ IEF373I STEP/JSTEP01 /START 2018342.0025
+ IEF032I STEP/JSTEP01 /STOP  2018342.0025 
+         CPU:     0 HR  00 MIN  00.02 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   584K  SYS:   268K  EXT:        4K  SYS:    12072K
+         ATB- REAL:                    60K  SLOTS:                     0K
+              VIRT- ALLOC:      10M SHRD:       0M
+ IEF375I  JOB/KCO3IFA /START 2018342.0025
+ IEF033I  JOB/KCO3IFA /STOP  2018342.0025 
+         CPU:     0 HR  00 MIN  00.02 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+
+ *** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT         
+
+                                                                                                                                  
+
+                                                                                                                PAGE    1         
+
+   LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                       
+                                       1 ****************************************************************        00060001         
+                                       2 *                            *                                          00070001         
+                                       3 * EXTRA CREDIT *                                                        00080099         
+                                       4 *                            *                                          00090001         
+                                       5 * DATE DUE: 12/07/2018 *                                                00100099         
+                                       6 *               *                                                       00110006         
+                                       7 * NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001         
+                                       8 *               *                                                       00130006         
+                                       9 ****************************************************************        00140001         
+ 000000                               10 MAIN     CSECT                                                          00150099         
+ 000000 90EC D00C            0000C    11          STM   14,12,12(13)                                             00160099         
+ 000004 18CF                          12          LR    12,15                                                    00170099         
+ 000000                               13          USING MAIN,12       ESTABLISHING REGISTER 12 AS MAIN           00181399         
+ 000006 41E0 C058            00058    14          LA    14,SAVEAREA                                              00181499         
+ 00000A 50E0 D008            00008    15          ST    14,8(,13)                                                00181599         
+ 00000E 50D0 E004            00004    16          ST    13,4(,14)                                                00181699         
+ 000012 18DE                          17          LR    13,14                                                    00181799         
+                                      18 *                                                                       00181899         
+ 000014 1B22                          19          SR    2,2                                                      00181999         
+ 000016 1B44                          20          SR    4,4                                                      00182099         
+ 000018 1B33                          21          SR    3,3                                                      00182199         
+ 00001A 5920 C050            00050    22 LOOP1    C     2,=F'5000'         COMPARING REGISTER 2 TO F             00182299         
+ 00001E 47B0 C034            00034    23          BNL   ENDLOOP1           BRANCH IF DONE                        00182399         
+ 000022 4120 2001            00001    24          LA    2,1(,2)                                                  00183099         
+ 000026 5A30 C054            00054    25          A     3,=F'1'            ADD 1 TO INDEX                        00184099         
+ 00002A 5240 C0A7            000A7    26          XDECO 4,SUM              LOAD REGISTER 4 WITH THE SUM          00185099         
+                                      27 *                                                                       00197631         
+ 00002E 1A43                          28          AR    4,3                += SUM TO INDEX                       00197899         
+ 000030 47F0 C01A            0001A    29          B     LOOP1              BRANCH BACK UNTIL CONDTIONS MET       00197999         
+                                      30 *                                                                       00198099         
+ 000034 E020 C0A0 0082 000A0          31 ENDLOOP1 XPRNT PRINT,130                                                00198199         
+                                      32 *                                                                       00198299         
+ 00003A 1BFF                          33          SR    15,15                                                    00198399         
+ 00003C 58D0 D004            00004    34          L     13,4(,13)                                                00198499         
+ 000040 58E0 D00C            0000C    35          L     14,12(,13)                                               00198599         
+ 000044 980C D014            00014    36          LM    0,12,20(13)                                              00198699         
+ 000048 07FE                          37          BR    14                                                       00198799         
+                                      38 *                                                                       00198899         
+                                      39          LTORG                                                          00198925         
+ 000050 00001388                      40                =F'5000'                                                                  
+ 000054 00000001                      41                =F'1'                                                                     
+                                      42 *                                                                       00199099         
+ 000058                               43 SAVEAREA DS    18F                                                      00199199         
+                                      44 *                                                                       00199299         
+ 0000A0                               45 PRINT    DS    CL1           STARTING FOR THE PRINT AREA                00199399         
+ 0000A1 E3D6E3C1D37A                  46          DC    C'TOTAL:'      SPACES                                    00199499         
+ 0000A7                               47 SUM      DS    CL9                                                      00200099         
+ 0000B0 4040404040404040              48          DC    90C' '                                                   00210099         
+                                      49 ************ENDOUTPUT*********                                          00223432         
+                                      50          END   MAIN                                                     00224099         
+
+ ***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                      
+
+ *** DYNAMIC CORE AREA USED:  LOW:    2080 HIGH:     484 LEAVING:  491004 FREE BYTES. AVERAGE:       50 BYTES/STMT ***            
+
+ *** ASSEMBLY TIME =    0.000 SECS,    51000 STATEMENTS/SEC ***                                                                   
+
+ *** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                       
+ TOTAL:    12497500                                                                                       5555555555       ¨ÿ§`-  
+
+ *** EXECUTION TIME =    0.017 SECS.     35017 INSTRUCTIONS EXECUTED -  2059823 INSTRUCTIONS/SEC ***                              
+
+ *** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                             
+
+ *** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                

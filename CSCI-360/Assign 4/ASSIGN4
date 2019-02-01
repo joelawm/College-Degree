@@ -1,0 +1,41 @@
+//KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   00010007
+//JSTEP01 EXEC PGM=ASSIST                                               00020001
+//STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+//SYSPRINT DD SYSOUT=*                                                  00040001
+//SYSDUMP DD SYSOUT=*                                                   00041017
+//SYSIN     DD *                                                        00050011
+****************************************************************        00060001
+*                            *                                          00070001
+* ASSIGNMENT 4 - BASIC DEBUGGING *                                      00080012
+*                            *                                          00090001
+* DATE DUE: 10/03/2018 *                                                00100012
+*               *                                                       00110006
+* NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001
+*               *                                                       00130006
+****************************************************************        00140001
+DUMP1    CSECT                                                          00150014
+         USING DUMP1,15    ESTABLISH R15 AS BASE REG                    00160014
+*                                                                       00161014
+         L     3,FIRST     LOAD REG 3 WITH VALUE AT LABEL FIRST         00170014
+         L     4,SECOND    LOAD REG 4 WITH VALUE AT LABEL SECOND        00180014
+         AR    3,4         ADD THE TWO VALUES TOGETHER                  00190014
+         LA    5,THIRD     REG 5 -> LABEL THIRD                         00191014
+         L     6,TWO       LOAD REG 6 WITH VALUE AT LABEL TWO           00192014
+         ST    3,0(6,5)    STORE RESULT OF ADDITION ABOVE AT 6,5        00193014
+         XDUMP THIRD,4     DUMP THE 4BYTES AT LABEL THIRD               00200014
+         SR    6,6         0 OUT REG 6                                  00201014
+*                                                                       00210014
+         BR    14          RETURN TO CALLER                             00212016
+*                                                                       00213014
+         LTORG                                                          00214014
+*                                                                       00215014
+NOTE     DC    CL2'OK'     PLACE TO CALLER                              00216014
+TWO      DC    F'2'        CONSTANT = 2                                 00217014
+FIRST    DC    F'211'      CONSTANT = 211                               00218014
+SECOND   DC    F'94'       CONSTANT = 94                                00219014
+THIRD    DS    XL4         SUM OF THE ADDITION                          00219114
+FOURTH   DS    F           STORAGE FOR ANOTHER NUMBER                   00219214
+*                                                                       00219314
+         END   DUMP1       PROGRAM ENDS HERE                            00220014
+/*                                                                      00230002
+//                                                                      00240002

@@ -1,0 +1,91 @@
+//KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   00010007
+//JSTEP01 EXEC PGM=ASSIST                                               00020001
+//STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+//SYSPRINT DD SYSOUT=*                                                  00040001
+//SYSIN     DD *                                                        00050011
+****************************************************************        00060001
+*                            *                                          00070001
+* ASSIGNMENT 5 - LOOPS AND XREAD *                                      00080021
+*                            *                                          00090001
+* DATE DUE: 10/09/2018 *                                                00100021
+*               *                                                       00110006
+* NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001
+*               *                                                       00130006
+****************************************************************        00140001
+ASSIGN5  CSECT                                                          00150025
+         USING ASSIGN5,15    ESTABLISH ADDRESSABILITY ON REGISTER 15    00160025
+*                                                                       00170225
+         SR    2,2           R2 = 0 FOR RECORD COUNTING                 00181125
+*                                                                       00181225
+         XREAD BUFFER,80     READ FIRST RECORD                          00181325
+*                                                                       00181425
+LOOP1    BC    B'0100',ENDLOOP1  BRANCH TO END IF NO MORE RECORDS       00181525
+*                                                                       00181625
+         A     2,=F'1'       ADD 1 TO RECORD COUNTER                    00181725
+*                                                                       00181825
+         XDECI 3,BUFFER                                                 00181926
+         XDECO 3,NUM1                                                   00182026
+         AR    6,3                                                      00182126
+*                                                                       00182225
+         XDECI 4,0(,1)                                                  00182327
+         XDECO 4,NUM2                                                   00182426
+         AR    6,4                                                      00182526
+*                                                                       00182622
+         XDECI 5,0(,1)                                                  00182727
+         XDECO 5,NUM3                                                   00182826
+         AR    6,5                                                      00182926
+*                                                                       00183026
+         XDECO 6,SUM                                                    00183126
+*                                                                       00183225
+         XPRNT NUMLINE,133                                              00183325
+*                                                                       00183425
+         XREAD BUFFER,80     READ FIRST RECORD                          00183525
+*                                                                       00183625
+         BC    B'1111',LOOP1                                            00183725
+*                                                                       00183822
+ENDLOOP1 BR    14      RETURN TO CALLER                                 00183925
+         M     8,=F'1'                                                  00184026
+         DR    8,2                                                      00184126
+         XDECO 9,AVG                                                    00184226
+         XDECO 8,REMAIN                                                 00184328
+         XPRNT AVG,133                                                  00184429
+*                                                                       00185016
+         LTORG                                                          00190025
+*                                                                       00190116
+BUFFER   DS    CL80           INPUT RECORD BUFFER                       00191025
+*                                                                       00191125
+NUMLINE  DC    C'0'           DOUBLE SPACED CARRIAGE CONTROL            00192025
+         DC    22C' '                                                   00193025
+NUM1     DS    CL12           OUTPUT FOR NUM1                           00200025
+         DC    13C' '                                                   00201025
+NUM2     DS    CL12           OUTPUT FOR NUM2                           00202025
+         DC    13C' '                                                   00203025
+NUM3     DS    CL12           OUTPUT FOR NUM3                           00204025
+         DC    13C' '                                                   00205025
+SUM      DS    CL12           OUTPUT FOR SUM                            00206025
+         DC    23C' '                                                   00207025
+AVG      DS    CL12           OUTPUT FOR THE AVERAGE                    00208026
+         DC    13C' '                                                   00209026
+REMAIN   DS    CL12           OUT PUT FOR THE REMAINDER                 00209126
+         DC    13C' '                                                   00209226
+*                                                                       00210016
+         END   ASSIGN5                                                  00220025
+/*                                                                      00230002
+//*                                                                     00232025
+//FT05F001   DD  *                                                      00233025
+    4500   -230      9                                                  00234025
+       0     +7      2                                                  00235025
+    8516   2853      0                                                  00236025
+    0020      0   3245                                                  00237025
+    5529   6977   1681                                                  00238025
+    1013    250     85                                                  00239025
+       0   3364   5275                                                  00239125
+    -887   1100   2293                                                  00239225
+    1234   8447   4591                                                  00239325
+     -89     -7     23                                                  00239425
+    8513   5409   2538                                                  00239525
+    0001   0002   0003                                                  00239625
+    9999   9998   9997                                                  00239725
+/*                                                                      00239825
+//FT06F001 DD SYSOUT=*                                                  00239925
+//                                                                      00240002

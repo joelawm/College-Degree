@@ -1,0 +1,82 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R
+0
+ 19.41.35 JOB03131 ---- FRIDAY,    21 SEP 2018 ----
+ 19.41.35 JOB03131  IRR010I  USERID KC03IFA  IS ASSIGNED TO THIS JOB.
+ 19.41.35 JOB03131  ICH70001I KC03IFA  LAST ACCESS AT 19:39:28 ON FRIDAY, SEPTEMBER 21, 2018
+ 19.41.35 JOB03131  $HASP373 KCO3IFA  STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 19.41.35 JOB03131  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 19.41.35 JOB03131  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 19.41.35 JOB03131  -KCO3IFA                       00     37 ******    .00     .0     79   0      0      0      0     0
+ 19.41.35 JOB03131  -KCO3IFA  ENDED.  NAME-JOE MEYER            TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 19.41.35 JOB03131  $HASP395 KCO3IFA  ENDED
+0------ JES2 JOB STATISTICS ------
+-  21 SEP 2018 JOB EXECUTION DATE
+-           32 CARDS READ
+-           82 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-            7 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   JOB03131
+         2 //JSTEP01 EXEC PGM=ASSIST                                               00020001
+         3 //STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+         4 //SYSPRINT DD SYSOUT=*                                                  00040001
+         5 //SYSIN     DD *                                                        00050011
+ ICH70001I KC03IFA  LAST ACCESS AT 19:39:28 ON FRIDAY, SEPTEMBER 21, 2018
+ IEF236I ALLOC. FOR KCO3IFA JSTEP01
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IEF142I KCO3IFA JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC00NIU.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB
+ IEF285I   KC03IFA.KCO3IFA.JOB03131.D0000102.?          SYSOUT
+ IEF285I   KC03IFA.KCO3IFA.JOB03131.D0000101.?          SYSIN
+ IEF373I STEP/JSTEP01 /START 2018264.1941
+ IEF032I STEP/JSTEP01 /STOP  2018264.1941
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+         VIRT:   584K  SYS:   264K  EXT:        0K  SYS:    12096K
+         ATB- REAL:                    12K  SLOTS:                     0K
+              VIRT- ALLOC:       2M SHRD:       0M
+ IEF375I  JOB/KCO3IFA /START 2018264.1941
+ IEF033I  JOB/KCO3IFA /STOP  2018264.1941
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT
+0
+0                                                                                                               PAGE    1
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                       1 ****************************************************************        00060001
+                                       2 *                            *                                          00070001
+                                       3 * ASSIGNMENT 3 - BASIC ASSEMBLER *                                      00080012
+                                       4 *                            *                                          00090001
+                                       5 * DATE DUE: 09/20/2018 *                                                00100012
+                                       6 *               *                                                       00110006
+                                       7 * NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001
+                                       8 *               *                                                       00130006
+                                       9 ****************************************************************        00140001
+ 000000                               10 MAIN   CSECT                                                            00150013
+ 000000                               11        USING MAIN,15 ESTABLISH ADDRESSABILITY ON REGISTER 15            00160013
+ 000000 5870 F020            00020    12        L     7,NUM1  PUT NUM1 INTO REGISTER 7                           00170013
+ 000004 5880 F024            00024    13        L     8,NUM2  PUT NUM2 INTO REGISTER 8                           00171013
+ 000008 1B78                          14        SR    7,8     SUBTRACTS NUM1 FROM NUM2                           00180013
+ 00000A 5840 F020            00020    15        L     4,NUM1  PUTS NUM1 INTO REGISTER 4                          00181013
+ 00000E 5850 F024            00024    16        L     5,NUM2  PUTS NUM2 INTO REGISTER 5                          00182013
+ 000012 1A45                          17        AR    4,5     ADD NUM1 TO NUM2                                   00183013
+ 000014 E160 0000 0000 00000          18        XDUMP                                                            00190013
+ 00001A 07FE                          19        BR    14      RETURN TO CALLER                                   00190113
+                                      20 *                     NUM1                                              00191013
+                                      21        LTORG                                                            00192013
+                                      22 *                                                                       00193013
+ 000020 0000008E                      23 NUM1   DC F'142'    HOLDS THE INTERGER 142                              00200013
+ 000024 00000089                      24 NUM2   DC F'137'    HOLDS THE INTERGER 137                              00210013
+                                      25 *                                                                       00211013
+                                      26     END MAIN                                                            00220002
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS
+0*** DYNAMIC CORE AREA USED:  LOW:     996 HIGH:     376 LEAVING:  492196 FREE BYTES. AVERAGE:       50 BYTES/STMT ***
+0*** ASSEMBLY TIME =    0.000 SECS,    27000 STATEMENTS/SEC ***
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***
+0BEGIN XSNAP - CALL     1 AT E000001A USER REGISTERS
+0 REGS 0-7      F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    00000117    00000089    F4F4F4F4    00000005
+  REGS 8-15     00000089    F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    00000028    FFFE7960    00000000
+0
+0*** EXECUTION TIME =    0.000 SECS.         8 INSTRUCTIONS EXECUTED -     8000 INSTRUCTIONS/SEC ***
+0*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***

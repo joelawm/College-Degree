@@ -1,0 +1,33 @@
+//KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   00010007
+//JSTEP01 EXEC PGM=ASSIST                                               00020001
+//STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+//SYSPRINT DD SYSOUT=*                                                  00040001
+//SYSIN     DD *                                                        00050011
+****************************************************************        00060001
+*                            *                                          00070001
+* ASSIGNMENT 3 - BASIC ASSEMBLER *                                      00080012
+*                            *                                          00090001
+* DATE DUE: 09/20/2018 *                                                00100012
+*               *                                                       00110006
+* NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001
+*               *                                                       00130006
+****************************************************************        00140001
+MAIN   CSECT                                                            00150013
+       USING MAIN,15 ESTABLISH ADDRESSABILITY ON REGISTER 15            00160013
+       L     7,NUM1  PUT NUM1 INTO REGISTER 7                           00170013
+       L     8,NUM2  PUT NUM2 INTO REGISTER 8                           00171013
+       SR    7,8     SUBTRACTS NUM1 FROM NUM2                           00180013
+       L     4,NUM1  PUTS NUM1 INTO REGISTER 4                          00181013
+       L     5,NUM2  PUTS NUM2 INTO REGISTER 5                          00182013
+       AR    4,5     ADD NUM1 TO NUM2                                   00183013
+       XDUMP                                                            00190013
+       BR    14      RETURN TO CALLER                                   00190113
+*                     NUM1                                              00191013
+       LTORG                                                            00192013
+*                                                                       00193013
+NUM1   DC F'142'    HOLDS THE INTERGER 142                              00200013
+NUM2   DC F'137'    HOLDS THE INTERGER 137                              00210013
+*                                                                       00211013
+    END MAIN                                                            00220002
+/*                                                                      00230002
+//                                                                      00240002

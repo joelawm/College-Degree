@@ -1,0 +1,26 @@
+Joe Meyer, Section 1 (I think)
+
+1. select AuthorFirst, AuthorLast from Author order by AuthorLast,AuthorFirst;
+2. select count(*) City from Publisher;
+3. select count(*) from Book;
+4. select b.BranchName, i.Onhand from Branch b, Inventory i;
+5. select count(*) NumEmployees from Branch;
+6. select b.Title, a.AuthorLast from Book b, Author a where AuthorLast = 'King';
+7. select Title, Type, Price from Book where Paperback = 'Y';
+8. select b.BranchName, i.OnHand from Branch b, Inventory i where Onhand >= '10';
+9. select b.Title, a.AuthorFirst, a.AuthorLast from Author a, Book b order by AuthorLast desc;
+10. select p.PublisherName,b.Title from Publisher p, Book b;
+11. select Title, Price from Book where Price < '10';
+12. select a.AuthorLast, p.PublisherName from Author a, Publisher p where PublisherName = 'Simon and Schuster';
+13. select b.Type, i.OnHand from Book b, Inventory i;
+14. select i.OnHand, b.BranchLocation from Branch b, Inventory i where BranchLocation = 'Brentwood Mall';
+15. select b.NumEmployees, b.BranchLocation, i.OnHand from Branch b, Inventory i;
+16. select w.Sequence, b.Title from Wrote w, Book b where Sequence = '1';
+17. select PublisherName from Publisher where publisherName like '%T%';
+18. select AuthorFirst from Author where AuthorFirst like '%ll%';
+19. select Title, BookCode from Book where BookCode in ('079x','138x','669x');
+20. select a.AuthorLast, b.Title, p.PublisherName from Book b, Author a, Publisher p order by PublisherName;
+21. select AuthorLast, AuthorFirst from Author order by AuthorLast,AuthorFirst;
+    select a.AuthorLast, b.Title from Book b, Author a where AuthorLast = 'King';
+22. What is the Last Name of the author that wrote the book Of Mice and Men?
+    select a.AuthorLast, b.Title from Author a, Book b where Title = 'Of Mice and Men';

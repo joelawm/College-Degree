@@ -1,0 +1,146 @@
+MariaDB [z1788150]> CREATE TABLE Dogs(
+    -> dog_id int NOT NULL AUTO_INCREMENT,
+    ->         breed varchar(255),
+    ->         name varchar(255),
+    -> PRIMARY KEY (dog_id)
+    -> );
+Query OK, 0 rows affected (0.32 sec)
+
+MariaDB [z1788150]> INSERT INTO Dogs (breed, name)
+    -> VALUES ("Aussie", "Jeff");
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [z1788150]> INSERT INTO Dogs (breed, name)
+    -> VALUES ("Huskie", "Phill");
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [z1788150]> INSERT INTO Dogs (breed, name)
+    -> VALUES ("Boston", "Loki");
+Query OK, 1 row affected (0.11 sec)
+
+MariaDB [z1788150]> INSERT INTO Dogs (breed, name)
+    -> VALUES ("Pug", "Bo");
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [z1788150]> INSERT INTO Dogs (breed, name)
+    -> VALUES ("Wiener Dog", "Giraffe");
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [z1788150]> select * from Dogs;
++--------+------------+---------+
+| dog_id | breed      | name    |
++--------+------------+---------+
+|      1 | Aussie     | Jeff    |
+|      2 | Huskie     | Phill   |
+|      3 | Boston     | Loki    |
+|      4 | Pug        | Bo      |
+|      5 | Wiener Dog | Giraffe |
++--------+------------+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [z1788150]> CREATE TABLE Visits(
+    -> visit_id int NOT NULL AUTO_INCREMENT,
+    -> date date,
+    -> dog_id int,
+    -> FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),
+    -> PRIMARY KEY (visit_id)
+    -> );
+Query OK, 0 rows affected (0.39 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 1);
+Query OK, 1 row affected (0.10 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 2);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 3);
+Query OK, 1 row affected (0.09 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 2);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 4);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 5);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 5);
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [z1788150]> INSERT INTO Visits (date, dog_id)
+    -> VALUES (CURDATE(), 1);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [z1788150]> select * from Visits;
++----------+------------+--------+
+| visit_id | date       | dog_id |
++----------+------------+--------+
+|        1 | 2018-10-29 |      1 |
+|        2 | 2018-10-29 |      2 |
+|        3 | 2018-10-29 |      3 |
+|        4 | 2018-10-29 |      2 |
+|        5 | 2018-10-29 |      4 |
+|        6 | 2018-10-29 |      5 |
+|        7 | 2018-10-29 |      5 |
+|        8 | 2018-10-29 |      1 |
++----------+------------+--------+
+8 rows in set (0.00 sec)
+
+MariaDB [z1788150]> ALTER TABLE Visits
+    -> ADD atime time;
+Query OK, 0 rows affected (0.87 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [z1788150]> UPDATE Visits SET atime = CURTIME();
+Query OK, 8 rows affected (0.05 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+MariaDB [z1788150]> select * from Visits;
++----------+------------+--------+----------+
+| visit_id | date       | dog_id | atime    |
++----------+------------+--------+----------+
+|        1 | 2018-10-29 |      1 | 00:18:28 |
+|        2 | 2018-10-29 |      2 | 00:18:28 |
+|        3 | 2018-10-29 |      3 | 00:18:28 |
+|        4 | 2018-10-29 |      2 | 00:18:28 |
+|        5 | 2018-10-29 |      4 | 00:18:28 |
+|        6 | 2018-10-29 |      5 | 00:18:28 |
+|        7 | 2018-10-29 |      5 | 00:18:28 |
+|        8 | 2018-10-29 |      1 | 00:18:28 |
++----------+------------+--------+----------+
+8 rows in set (0.00 sec)
+
+MariaDB [z1788150]> select d.name, COUNT(v.dog_id) FROM Dogs d, Visits v GROUP BY d.name;
++---------+-----------------+
+| name    | COUNT(v.dog_id) |
++---------+-----------------+
+| Bo      |               8 |
+| Giraffe |               8 |
+| Jeff    |               8 |
+| Loki    |               8 |
+| Phill   |               8 |
++---------+-----------------+
+5 rows in set (0.00 sec)
+
+MariaDB [z1788150]> DROP TABLE Dogs;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails
+MariaDB [z1788150]> DROP TABLE Visits;
+Query OK, 0 rows affected (0.19 sec)
+
+MariaDB [z1788150]> SET FOREIGN_KEY_CHECKS=0;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [z1788150]> DROP TABLE Dogs;
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [z1788150]> \T
+Currently logging to file 'output_dogs.txt'
+MariaDB [z1788150]> \t

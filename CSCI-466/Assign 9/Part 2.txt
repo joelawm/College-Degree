@@ -1,0 +1,60 @@
+MariaDB [z1788150]> use z1788150;
+Database changed
+MariaDB [z1788150]> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [z1788150]> delete from Fall where pk = 3;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [z1788150]> select * from Fall;
++----+-------+
+| pk | data  |
++----+-------+
+|  1 | dataA |
+|  2 | dataB |
+|  4 | dataD |
+|  5 | dataE |
++----+-------+
+4 rows in set (0.00 sec)
+
+MariaDB [z1788150]> update Fall set data = 'changed' where pk = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1788150]> update Fall set data = 'changed 2' where pk = 4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1788150]> insert into Fall values(6, 'dataF');
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [z1788150]> select * from Spring;
+ERROR 1146 (42S02): Table 'z1788150.Spring' doesn't exist
+MariaDB [z1788150]> select * from Fall;
++----+-----------+
+| pk | data      |
++----+-----------+
+|  1 | dataA     |
+|  2 | changed   |
+|  4 | changed 2 |
+|  5 | dataE     |
+|  6 | dataF     |
++----+-----------+
+5 rows in set (0.00 sec)
+
+MariaDB [z1788150]> rollback;
+Query OK, 0 rows affected (0.09 sec)
+
+MariaDB [z1788150]> select * from Fall;
++----+-------+
+| pk | data  |
++----+-------+
+|  1 | dataA |
+|  2 | dataB |
+|  3 | dataC |
+|  4 | dataD |
+|  5 | dataE |
++----+-------+
+5 rows in set (0.00 sec)
+
+MariaDB [z1788150]> \t

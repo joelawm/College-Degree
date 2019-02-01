@@ -1,0 +1,24 @@
+//KCO3IFA JOB ,'JOE MEYER',MSGCLASS=H                                   00010007
+//JSTEP01 EXEC PGM=ASSIST                                               00020001
+//STEPLIB DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                        00030001
+//SYSPRINT DD SYSOUT=*                                                  00040001
+//SYSIN     DD *                                                        00050011
+****************************************************************        00060001
+*                            *                                          00070001
+* ASSIGNMENT 1 - YOUR FIRST MAINFRAME PROGRAM *                         00080001
+*                            *                                          00090001
+* DATE DUE: 09/05/2018 *                                                00100001
+*               *                                                       00110006
+* NOTE THAT THIS DOCUMENTATION BOX DOES NOT GO PAST COLUMN 65! *        00120001
+*               *                                                       00130006
+****************************************************************        00140001
+MAIN  CSECT                                                             00150002
+    USING MAIN,15 ESTABLISH ADDRESSABILITY ON REGISTER 15               00160002
+    LA  3,12   LOAD 12 INTO REGISTER 3                                  00170002
+    LA  9,5   LOAD 5 INTO REGISTER 9                                    00180002
+    AR  3,9   ADD REGISTER 9 TO REGISTER 3                              00190002
+    XDUMP ,    DUMP THE REGISTER CONTENTS                               00200002
+    BR 14     RETURN TO CALLER                                          00210008
+    END MAIN                                                            00220002
+/*                                                                      00230002
+//                                                                      00240002

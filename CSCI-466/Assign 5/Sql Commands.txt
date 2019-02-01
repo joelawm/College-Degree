@@ -1,0 +1,9 @@
+Joe Meyer
+1. describe BabyName;
+2. select year from BabyName where name = 'Joe';
+3. select name from BabyName where year = '1998';
+4. select name from BabyName where name like 'Joe' order by name, year;
+5. select count(*) from BabyName;
+6. select count(*) from BabyName where year = '1998';
+7. select name from BabyName where year = '1998' and name like '%J%';
+8. select count(*) from BabyName where year = '1972' order by gender;
