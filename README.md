@@ -1,4 +1,12 @@
-# College-Degree
+# College Degree and outside of school learning
 This is everything that is include in my 4 years of college.
 
-This was a course I took with Kirill Eremenko. The course taught me R for Data Science purposes, and this is where I put what I learned.
+## CSCI 241
+###### Overview
+This is a overview
+
+1. Assignment 1
+    - it invovles stuff
+2. Assignment 2
+    - it involves even more 
+
