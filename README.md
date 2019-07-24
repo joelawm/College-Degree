@@ -115,25 +115,27 @@ IBM Assembler
 
 ###### Assignments
 1. Assignment 1
-    - 
-2. Assignment 2
-    - 
-3. Assignment 3
-    - 
-4. Assignment 4
-    - 
-5. Assignment 5
-    - 
-6. Assignment 6
-    - 
-7. Assignment 7
-    - 
-8. Assignment 8
-    - 
-9. Assignment 9
-    - 
-10. Assignment 10
-    - 
+    - This program is just a simple program to copy from, and got us used to the green screen (TN 370). Just simple standard entry linkage.
+2. Assignment 3
+    - This simple program just goes over the basic addition of registers in IBM Assembler.
+3. Assignment 4
+    - A program going over the basic methods to use a LTORG to store data in IBM Assembler.
+4. Assignment 5
+    - This program is just using XDECO and XDECI to move data and do basic formatting.
+5. Assignment 6
+    - A conitnuation of Assignment 5 but this time doing more real world data moving.
+6. Assignment 7
+    - Another continuation of 5 but this time includes alot more formatting.
+7. Assignment 8
+    - This program demonstartes the use of pack decimal to move data around and store it for formatted printing.
+8. Assignment 9
+    - A continuation of assignmnet 8 but using even more data to store and sort.
+9. Assignment 10
+    - Similar to program 8 but this time using XREAD to pull in the data and EDMK.
+10. Extra Credit
+    - This extra credit assignment is very interesting, it compares Assembler code to C++ doing the exact same thing. It compares lines of code, file size and file output size. Its pretty shocking the diffrence.
+11. Final
+    - This is the end of class final, its a combination of all the knowledge I have gained in the class, but in a 500 line assignment.
     
 ## CSCI 463 :
 Instructor: Computer Architecture and Systems Organization
@@ -186,32 +188,32 @@ Cobol, JCL, IBM Assembler
 ## CSCI 466 : Databases
 Instructor: Georgia Brown
 ###### Overview
-Computer Science 466.
+Computer Science 466 is about learning how to setup a database. We did several ERD's and also used MySQL to setup query strings and databases. We put this into real world use by runnning PHP and C++ programs to create a website and database.
 
 ###### Languages
 SQL, PHP, C++
 
 ###### Assignments
-1. Assignment 1
-    - 
-2. Assignment 2
-    - 
-3. Assignment 3
-    - 
-4. Assignment 4
-    - 
-5. Assignment 5
-    - 
-6. Assignment 6
-    - 
-7. Assignment 7
-    - 
-8. Assignment 8
-    - 
-9. Assignment 9
-    - 
-10. Assignment 10
-    - 
+1. ERD
+    - This was a ERD using 1nf to structure a database.
+2. ERD 2
+    - Similar to ERD 1 but using 2nf.
+3. ERD 3nf
+    - Same as ERD 1 and 2 but using 3nf.
+4. Assignment 5
+    - This program is taking a already setup databse and learning how to get information you need from it.
+5. Assignment 6
+    - Similar to program 5 but this is running about 20 diffrent commands to get more complex information.
+6. Assignment 7
+    - This program is about running a script to create and make a table and add values to it.
+7. Assignment 8
+    - This is out first HTML program creating a very simple interface.
+8. Assignment 9
+    - This is even more SQL Queries but slight more complex and getting data for a buisness using transactions.
+9. Assignment 11
+    - This is a PHP based website allowing a user to enter data into a table and display those records.
+10. Assignment 12
+    - This is the exact same assignment as 11 but done in C++.
     
 ## CSCI 467 : Introduction to Software Engineering :: HAVE NOT TAKEN YET 
 Instructor:
