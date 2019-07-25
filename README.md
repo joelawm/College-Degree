@@ -45,23 +45,19 @@ C++
 1. Assignment 0
     - This is just a simple testing program, we wee using the school server to test for our programs.
 2. Assignment 2
-    - 
+    - This program takes a users information and displays it using various functions.
 3. Assignment 3
-    - 
+    - Similar to Assignment 2 but this time it takes in the binary file and take the data out of it, to display.
 4. Assignment 4
-    - 
+    - This is just a simple program to display the use of constructors.
 5. Assignment 5
-    - 
+    - This program shows a Stack in action and how you could use it for data storage.
 6. Assignment 6
-    - 
+    - Assignment 6 shows the use of templates in a queue, so it can sort any data types.
 7. Assignment 7
-    - 
+    - A continuation of Assignment 5, but using templates to achieve diffrent data types.
 8. Assignment 8
-    - 
-9. Assignment 9
-    - 
-10. Assignment 10
-    - 
+    - Demonstrates the use of Quick sort and Merge sort functions.
     
 ## CSCI 330 : UNIX and the Network Programming
 Instructor: Raimund Ege
@@ -95,8 +91,7 @@ C++
 4. Assignment 4
     - Goes over the idea of Queues and how to implement them.
 5. Assignment 5
-    - A implementation of Binary Search Trees.
-6. Assignment 6
+    - A implementation of Binary Search Trees.6. Assignment 6
     - A countinuation of Binary Search Trees.
 7. Assignment 7
     - Implementing a HEAP Sort and printing the contents.
@@ -137,8 +132,8 @@ IBM Assembler
 11. Final
     - This is the end of class final, its a combination of all the knowledge I have gained in the class, but in a 500 line assignment.
     
-## CSCI 463 :
-Instructor: Computer Architecture and Systems Organization
+## CSCI 463 : Computer Architecture and Systems Organization
+Instructor: John Berezinski
 ###### Overview
 Computer Science 463 is a class all about the inner workings of the computer. From modern CPU design to Buses, this class pretty much covers it all. A lot of this knowledge I already had because of a high school A+ Certification class, as well as my love for computer hardware.
 
@@ -165,25 +160,15 @@ Cobol, JCL, IBM Assembler
 
 ###### Assignments
 1. Assignment 1
-    - 
 2. Assignment 2
-    - 
 3. Assignment 3
-    - 
 4. Assignment 4
-    - 
 5. Assignment 5
-    - 
 6. Assignment 6
-    - 
 7. Assignment 7
-    - 
 8. Assignment 8
-    - 
 9. Assignment 9
-    - 
 10. Assignment 10
-    - 
     
 ## CSCI 466 : Databases
 Instructor: Georgia Brown
