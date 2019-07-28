@@ -1,0 +1,573 @@
+1                    J E S 2  J O B  L O G  --  S Y S T E M  S 0 W 1  --  N O D E  Z O S K C T R         
+0 
+ 17.37.48 JOB02195 ---- TUESDAY,   26 FEB 2019 ----
+ 17.37.48 JOB02195  IRR010I  USERID KC03H0A  IS ASSIGNED TO THIS JOB.
+ 17.37.49 JOB02195  ICH70001I KC03H0A  LAST ACCESS AT 17:36:38 ON TUESDAY, FEBRUARY 26, 2019
+ 17.37.49 JOB02195  $HASP373 KC03H0AA STARTED - INIT 2    - CLASS A        - SYS S0W1
+ 17.37.49 JOB02195  -                                         --TIMINGS (MINS.)--            ----PAGING COUNTS---
+ 17.37.49 JOB02195  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP    TCB    SRB  CLOCK   SERV  PG   PAGE   SWAP    VIO SWAPS
+ 17.37.49 JOB02195  -KC03H0AA                      00    186 ******    .00     .0    589   0      0      0      0     0
+ 17.37.49 JOB02195  -KC03H0AA                      00     88 ******    .00     .0    295   0      0      0      0     0
+ 17.37.49 JOB02195  -KC03H0AA                      00     41 ******    .00     .0    114   0      0      0      0     0
+ 17.37.49 JOB02195  -KC03H0AA ENDED.  NAME-MEYER                TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+ 17.37.49 JOB02195  $HASP395 KC03H0AA ENDED
+0------ JES2 JOB STATISTICS ------
+-  26 FEB 2019 JOB EXECUTION DATE
+-          141 CARDS READ
+-          573 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           31 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03H0AA JOB ,'MEYER',MSGCLASS=H                                      JOB02195
+         2 //JSTEP01 EXEC PGM=ASMA90,PARM=ASA                                              
+         3 //SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR                                          
+         4 //SYSIN    DD *                                                                 
+         5 //SYSMDECK DD SPACE=(CYL,(1,1))                                                 
+         6 //SYSUT1   DD SPACE=(CYL,(1,1))                                                 
+         7 //SYSUT2   DD SPACE=(CYL,(1,1))                                                 
+         8 //SYSUT3   DD SPACE=(CYL,(1,1))                                                 
+         9 //SYSUT4   DD SPACE=(CYL,(1,1))                                                 
+        10 //SYSUT5   DD SPACE=(CYL,(1,1))                                                 
+        11 //SYSUT6   DD SPACE=(CYL,(1,1))                                                 
+        12 //SYSUT7   DD SPACE=(CYL,(1,1))                                                 
+        13 //SYSUT8   DD SPACE=(CYL,(1,1))                                                 
+        14 //SYSUT9   DD SPACE=(CYL,(1,1))                                                 
+        15 //SYSUT10  DD SPACE=(CYL,(1,1))                                                 
+        16 //SYSUT11  DD SPACE=(CYL,(1,1))                                                 
+        17 //SYSUT12  DD SPACE=(CYL,(1,1))                                                 
+        18 //SYSUT13  DD SPACE=(CYL,(1,1))                                                 
+        19 //SYSUT14  DD SPACE=(CYL,(1,1))                                                 
+        20 //SYSUT15  DD SPACE=(CYL,(1,1))                                                 
+           //*                                                                             
+        21 //SYSLIN   DD DSN=&&OBJMOD,SPACE=(CYL,(1,1)),DISP=(MOD,PASS)                    
+        22 //SYSPRINT DD SYSOUT=*                                                          
+           //*                                                                             
+        23 //JSTEP02  EXEC PGM=HEWL,COND=(0,LT)                                            
+        24 //SYSLIB   DD DSN=CEE.SCEELKED,DISP=SHR                                         
+           //*                                                                             
+        25 //SYSLIN   DD DSN=&&OBJMOD,DISP=(MOD,DELETE,DELETE)                             
+        26 //SYSLMOD  DD DSN=KC03H0A.CSCI465.LOADLIB(ASSIGN3),                             
+           //            SPACE=(1024,(50,20,1)),DSNTYPE=LIBRARY,                           
+           //            DISP=(MOD,KEEP,KEEP)                                              
+           //*                                                                             
+        27 //SYSPRINT DD SYSOUT=*                                                          
+           //*                                                                             
+        28 //JSTEP03  EXEC PGM=ASSIGN3,COND=(0,LT)                                         
+           //*                                                                             
+        29 //STEPLIB   DD DSN=KC03H0A.CSCI465.LOADLIB,DISP=SHR                             
+           //*                                                                             
+        30 //ASMIN     DD DSN=KC02322.CSCI465.DATASP19(DATA3),DISP=SHR                     
+           //*                                                                             
+        31 //ASMOUT    DD SYSOUT=*                                                         
+           //*                                                                             
+        32 //SYSUDUMP  DD SYSOUT=*                                                         
+ ICH70001I KC03H0A  LAST ACCESS AT 17:36:38 ON TUESDAY, FEBRUARY 26, 2019
+ IEF236I ALLOC. FOR KC03H0AA JSTEP01
+ IEF237I A001 ALLOCATED TO SYSLIB
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD101I SMS ALLOCATED TO DDNAME (SYSMDECK)
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107079    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT1  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107080    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT2  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107081    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT3  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107082    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT4  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107083    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT5  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107084    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT6  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107085    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT7  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107086    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT8  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107087    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT9  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107088    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT10 )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107089    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT11 )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107090    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT12 )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107091    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT13 )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107092    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT14 )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107093    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSUT15 )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.R0107094    )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IGD101I SMS ALLOCATED TO DDNAME (SYSLIN  )
+         DSN (SYS19057.T173749.RA000.KC03H0AA.OBJMOD.H01  )
+         STORCLAS (TEMPSC) MGMTCLAS (        ) DATACLAS (        )
+         VOL SER NOS= TEMP00                                                                
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF142I KC03H0AA JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+ IEF285I   SYS1.MACLIB                                  KEPT          
+ IEF285I   VOL SER NOS= Z1RES1.                            
+ IEF285I   KC03H0A.KC03H0AA.JOB02195.D0000101.?         SYSIN         
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107079     DELETED,   DDNAME=SYSMDECK
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107080     DELETED,   DDNAME=SYSUT1  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107081     DELETED,   DDNAME=SYSUT2  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107082     DELETED,   DDNAME=SYSUT3  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107083     DELETED,   DDNAME=SYSUT4  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107084     DELETED,   DDNAME=SYSUT5  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107085     DELETED,   DDNAME=SYSUT6  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107086     DELETED,   DDNAME=SYSUT7  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107087     DELETED,   DDNAME=SYSUT8  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107088     DELETED,   DDNAME=SYSUT9  
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107089     DELETED,   DDNAME=SYSUT10 
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107090     DELETED,   DDNAME=SYSUT11 
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107091     DELETED,   DDNAME=SYSUT12 
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107092     DELETED,   DDNAME=SYSUT13 
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107093     DELETED,   DDNAME=SYSUT14 
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.R0107094     DELETED,   DDNAME=SYSUT15 
+ IGD106I SYS19057.T173749.RA000.KC03H0AA.OBJMOD.H01   PASSED,    DDNAME=SYSLIN  
+ IEF285I   KC03H0A.KC03H0AA.JOB02195.D0000102.?         SYSOUT        
+ IEF373I STEP/JSTEP01 /START 2019057.1737
+ IEF032I STEP/JSTEP01 /STOP  2019057.1737 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:   176K  SYS:   284K  EXT:    32768K  SYS:    11468K
+         ATB- REAL:                    12K  SLOTS:                     0K
+              VIRT- ALLOC:       2M SHRD:       0M
+ IEFA108I KC03H0AA JSTEP02 SYSLIN - PASSED DATA SET INFORMATION FOUND. MOD IS TREATED AS OLD
+ IEF236I ALLOC. FOR KC03H0AA JSTEP02
+ IEF237I A001 ALLOCATED TO SYSLIB
+ IGD103I SMS ALLOCATED TO DDNAME SYSLIN
+ IGD103I SMS ALLOCATED TO DDNAME SYSLMOD
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF142I KC03H0AA JSTEP02 - STEP WAS EXECUTED - COND CODE 0000
+ IEF285I   CEE.SCEELKED                                 KEPT          
+ IEF285I   VOL SER NOS= Z1RES1.                            
+ IGD105I SYS19057.T173749.RA000.KC03H0AA.OBJMOD.H01   DELETED,   DDNAME=SYSLIN  
+ IGD104I KC03H0A.CSCI465.LOADLIB                      RETAINED,  DDNAME=SYSLMOD 
+ IEF285I   KC03H0A.KC03H0AA.JOB02195.D0000103.?         SYSOUT        
+ IEF373I STEP/JSTEP02 /START 2019057.1737
+ IEF032I STEP/JSTEP02 /STOP  2019057.1737 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:    88K  SYS:   280K  EXT:     1640K  SYS:    11436K
+         ATB- REAL:                    24K  SLOTS:                     0K
+              VIRT- ALLOC:       4M SHRD:       0M
+ IEF236I ALLOC. FOR KC03H0AA JSTEP03
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IGD103I SMS ALLOCATED TO DDNAME ASMIN
+ IEF237I JES2 ALLOCATED TO ASMOUT
+ IEF237I JES2 ALLOCATED TO SYSUDUMP
+ IEF142I KC03H0AA JSTEP03 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC03H0A.CSCI465.LOADLIB                      RETAINED,  DDNAME=STEPLIB 
+ IGD104I KC02322.CSCI465.DATASP19                     RETAINED,  DDNAME=ASMIN   
+ IEF285I   KC03H0A.KC03H0AA.JOB02195.D0000104.?         SYSOUT        
+ IEF285I   KC03H0A.KC03H0AA.JOB02195.D0000105.?         SYSOUT        
+ IEF373I STEP/JSTEP03 /START 2019057.1737
+ IEF032I STEP/JSTEP03 /STOP  2019057.1737 
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+         VIRT:    16K  SYS:   296K  EXT:        0K  SYS:    11472K
+         ATB- REAL:                     0K  SLOTS:                     0K
+              VIRT- ALLOC:       0M SHRD:       0M
+ IEF375I  JOB/KC03H0AA/START 2019057.1737
+ IEF033I  JOB/KC03H0AA/STOP  2019057.1737 
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+1                                         High Level Assembler Option Summary                   (PTF UI11676)   Page    1         
+-                                                                                            HLASM R6.0  2019/02/26 17.37         
+0  No Overriding ASMAOPT Parameters                                                                                               
+   Overriding Parameters-  ASA                                                                                                    
+   No Process Statements                                                                                                          
+                                                                                                                                  
+                                                                                                                                  
+   Options for this Assembly                                                                                                      
+0  NOADATA                                                                                                                        
+     ALIGN                                                                                                                        
+ 3   ASA                                                                                                                          
+     BATCH                                                                                                                        
+     CODEPAGE(047C)                                                                                                               
+   NOCOMPAT                                                                                                                       
+   NODBCS                                                                                                                         
+   NODECK                                                                                                                         
+     DXREF                                                                                                                        
+     ESD                                                                                                                          
+   NOEXIT                                                                                                                         
+     FLAG(0,ALIGN,CONT,EXLITW,NOIMPLEN,NOPAGE0,PUSH,RECORD,NOSUBSTR,USING0)                                                       
+   NOFOLD                                                                                                                         
+   NOGOFF                                                                                                                         
+   NOINFO                                                                                                                         
+     LANGUAGE(EN)                                                                                                                 
+   NOLIBMAC                                                                                                                       
+     LINECOUNT(60)                                                                                                                
+     LIST(121)                                                                                                                    
+     MACHINE(,NOLIST)                                                                                                             
+     MXREF(SOURCE)                                                                                                                
+     OBJECT                                                                                                                       
+     OPTABLE(UNI,NOLIST)                                                                                                          
+   NOPCONTROL                                                                                                                     
+   NOPESTOP                                                                                                                       
+   NOPROFILE                                                                                                                      
+   NORA2                                                                                                                          
+   NORENT                                                                                                                         
+     RLD                                                                                                                          
+     RXREF                                                                                                                        
+     SECTALGN(8)                                                                                                                  
+     SIZE(MAX)                                                                                                                    
+   NOSUPRWARN                                                                                                                     
+     SYSPARM()                                                                                                                    
+   NOTERM                                                                                                                         
+   NOTEST                                                                                                                         
+     THREAD                                                                                                                       
+   NOTRANSLATE                                                                                                                    
+     TYPECHECK(MAGNITUDE,REGISTER)                                                                                                
+     USING(NOLIMIT,MAP,WARN(15))                                                                                                  
+   NOWORKFILE                                                                                                                     
+     XREF(SHORT,UNREFS)                                                                                                           
+                                                                                                                                  
+   No Overriding DD Names                                                                                                         
+1                                              External Symbol Dictionary                                       Page    2         
+-Symbol   Type   Id     Address  Length   Owner Id Flags Alias-of                            HLASM R6.0  2019/02/26 17.37         
+0ASMPGM3   SD 00000001 00000000 000002C8             00                                                                           
+1                                                                                                               Page    3         
+   Active Usings: None                                                                                                            
+0  Loc  Object Code    Addr1 Addr2  Stmt   Source Statement                                  HLASM R6.0  2019/02/26 17.37         
+0                                      1          PRINT  NOGEN                MACRO CALL SUPPRESSION                              
+                                       2 **********************************************************************                   
+                                       3 *                                                                    *                   
+                                       4 * PROGRAM:    ASMPGM3                                                *                   
+                                       5 * AUTHOR:     GEOFFREY D. DECKER                                     *                   
+                                       6 * DATE:       02/06/2019                                             *                   
+                                       7 *                                                                    *                   
+                                       8 * FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN WRITES   *                   
+                                       9 *            THEM TO STANDARD OUTPUT.                                *                   
+                                      10 *                                                                    *                   
+                                      11 * INPUT:     INPUT - THE INPUT DATA RECORDS READ IN.                 *                   
+                                      12 *                                                                    *                   
+                                      13 * OUTPUT:    OUTPUT - THE INPUT DATA RECORDS WRITTEN OUT.            *                   
+                                      14 *                                                                    *                   
+                                      15 **********************************************************************                   
+ 000000                00000 002C8    16 ASMPGM3  CSECT                       BEGIN ASMPGM3                                       
+                                      17 *                                                                                        
+ 000000 90EC D00C            0000C    18          STM   14,12,12(13)          SAVE CALLER'S REGS                                  
+ 000004 18CF                          19          LR    12,15                 SET R12 TO R15                                      
+                  R:C  00000          20          USING ASMPGM3,12            ESTABLISH R12 AS 1ST BASE REG                       
+ 000006 41E0 C0E0            000E0    21          LA    14,REGS               R14 -> CURRENT SAVE AREA                            
+ 00000A 50D0 E004            00004    22          ST    13,4(,14)             SAVE CALLER'S SAVE AREA ADDR                        
+ 00000E 50E0 E008            00008    23          ST    14,8(,14)             SAVE CURRENT SAVE AREA ADDR                         
+ 000012 18DE                          24          LR    13,14                 R13 -> CURRENT SAVE AREA                            
+                                      25 *                                                                                        
+ 000014 4D10 C01C            0001C    26          OPEN  (INDCB,(INPUT))       OPEN INPUT FILE                                     
+ 00001E 12FF                          33          LTR   15,15                 CHECK FOR SUCCESSFUL OPEN                           
+ 000020 4780 C034            00034    34          BZ    OPENOK1               BRANCH IF SUCCESSFUL TO OPENOK1                     
+ 000024 4110 014D            0014D    35          ABEND 333,DUMP              ABEND IF OPEN FAILS & DISPLAY 333                   
+                                      45 *                                                                                        
+ 000034 4D10 C03C            0003C    46 OPENOK1  OPEN  (OUTDCB,(OUTPUT))     OPEN OUTPUT FILE                                    
+ 00003E 12FF                          53          LTR   15,15                 CHECK FOR SUCCESSFUL OPEN                           
+ 000040 4780 C054            00054    54          BZ    OPENOK2               BRANCH IF SUCCESSFUL TO OPENOK2                     
+ 000044 4110 01BC            001BC    55          ABEND 444,DUMP              ABEND IF OPEN FAILS & DISPLAY 444                   
+                                      65 *                                                                                        
+ 000054 4110 C200            00200    66 OPENOK2  GET   INDCB,INRECORD        READ THE FIRST RECORD                               
+                                      77 *                                                                                        
+ 000064 95E8 C260      00260          78 LOOP1    CLI   EOFFLAG,C'Y'          CHECK FOR END OF INPUT DATA                         
+                                      79 *                                                                                        
+ 000068 4780 C098            00098    80          BE    ENDLOOP1              BRANCH TO ENDLOOP1 IF EOF                           
+                                      81 *                                                                                        
+ 00006C D24F C179 C128 00179 00128    82          MVC   OUTDATA(80),INRECORD  MOVE FROM INPUT DATA TO PRINT                       
+ 000072 4110 C268            00268    83          PUT   OUTDCB,PRINTLN        WRITE THE PRINT DATA                                
+                                      94 *                                                                                        
+ 000082 4110 C200            00200    95          GET   INDCB,INRECORD        GET THE NEXT RECORD                                 
+                                     106 *                                                                                        
+ 000092 47F0 C064            00064   107          B     LOOP1                 BRANCH TO TOP OF LOOP1                              
+                                     108 *                                                                                        
+ 000096 0700                         109 ENDLOOP1 CLOSE (INDCB,,OUTDCB)       CLOSE THE TWO DCBs                                  
+                                     118 *                                                                                        
+ 0000A6 58D0 D004            00004   119          L     13,4(,13)             R13 -> CALLER'S SAVE AREA                           
+ 0000AA 58E0 D00C            0000C   120          L     14,12(,13)            RESTORE R14                                         
+ 0000AE 980C D014            00014   121          LM    0,12,20(13)           RESTORE R0 THROUGH R12                              
+                                     122 *                                                                                        
+ 0000B2 07FE                         123          BR    14                    RETURN TO CALLER                                    
+1                                                                                                               Page    4         
+   Active Usings: ASMPGM3,R12                                                                                                     
+0  Loc  Object Code    Addr1 Addr2  Stmt   Source Statement                                  HLASM R6.0  2019/02/26 17.37         
+0                                    124 *                                                                                        
+ 0000B8                              125          LTORG                       LTORG TO ORGANIZE LITERALS                          
+                                     126 *                                                                                        
+ 0000B8                000B8 000C0   127          ORG   ASMPGM3+((*-ASMPGM3+31)/32)*32                                            
+ 0000C0 C8C5D9C540C9E240             128          DC    C'HERE IS THE STORAGE FOR: ASMPGM3'                                       
+                                     129 *                                                                                        
+ 0000E0 0000000000000000             130 REGS     DC    18F'0'                MAINREGS FOR STANDARD LINKAGE                       
+                                     131 *                                                                                        
+ 000128 7C7C7C7C7C7C7C7C             132 INRECORD DC    80C'@'                INPUT BUFFER FILL WITH '@'                          
+                                     133 *                                                                                        
+ 000178 40                           134 PRINTLN  DC    CL1' '                PRINTLN CARRIAGE CONTROL                            
+ 000179 4040404040404040             135 OUTDATA  DC    80C' '                80 BYTE STORAGE FOR PRINTING                        
+ 0001C9 4040404040404040             136          DC    52C' '                FILLER FOR PRINT RECORD                             
+                                     137 *                                                                                        
+                                     138 *  INPUT DCB                                                                             
+                                     139 *                                                                                        
+                                     140 INDCB    DCB   DDNAME=ASMIN,                                           X                 
+                                                        DEVD=DA,                                                X                 
+                                                        DSORG=PS,                                               X                 
+                                                        MACRF=GM,                                               X                 
+                                                        RECFM=FB,                                               X                 
+                                                        LRECL=80,                                               X                 
+ 000200 0000000000000000                                EODAD=EOFRTN                                                              
+                                     182 *                                                                                        
+                                     183 *  INPUT DCB'S EOF FLAG AND EOF ROUTINE                                                  
+                                     184 *                                                                                        
+ 000260 D5                           185 EOFFLAG  DC    C'N'                  EOFFLAG FOR INPUT FILE                              
+                                     186 *                                                                                        
+ 000261 00                                                                                                                        
+ 000262 92E8 C260      00260         187 EOFRTN   MVI   EOFFLAG,C'Y'          SET EOF FLAG TO Y                                   
+ 000266 07FE                         188          BR    14                    BRANCH TO STMT FOLLOWING GET                        
+                                     189 *                                                                                        
+                                     190 *  OUTPUT DCB                                                                            
+                                     191 *                                                                                        
+                                     192 OUTDCB   DCB   DDNAME=ASMOUT,                                          X                 
+                                                        DEVD=DA,                                                X                 
+                                                        DSORG=PS,                                               X                 
+                                                        MACRF=PM,                                               X                 
+                                                        RECFM=FBA,                                              X                 
+                                                        LRECL=133,                                              X                 
+ 000268 0000000000000000                                BLKSIZE=133                                                               
+                                     234 *                                                                                        
+ 000000                              235          END   ASMPGM3                                                                   
+1                                                 Relocation Dictionary                                         Page    5         
+-   Pos.Id   Rel.Id   Address  Type  Action                                                  HLASM R6.0  2019/02/26 17.37         
+0  00000001 00000001 00000019   A 3     +                                                                                         
+   00000001 00000001 00000039   A 3     +                                                                                         
+   00000001 00000001 0000009D   A 3     +                                                                                         
+   00000001 00000001 000000A1   A 3     +                                                                                         
+   00000001 00000001 00000221   A 3     +                                                                                         
+1                               Ordinary Symbol and Literal Cross Reference                                     Page    6         
+-Symbol   Length   Value     Id    R Type Asm  Program   Defn References                     HLASM R6.0  2019/02/26 17.37         
+0ASMPGM3       1 00000000 00000001     J                   16   20U  127   127   235                                              
+ ENDLOOP1      4 00000098 00000001     I                  112   80B                                                               
+ EOFFLAG       1 00000260 00000001     C  C               185   78   187M                                                         
+ EOFRTN        4 00000262 00000001     I                  187  157                                                                
+ INDCB         4 00000200 00000001     F  F               145   31    72   101   114                                              
+ INRECORD      1 00000128 00000001     C  C               132   73    82   102                                                    
+ LOOP1         4 00000064 00000001     I                   78  107B                                                               
+ OPENOK1       4 00000034 00000001     I                   49   34B                                                               
+ OPENOK2       4 00000054 00000001     I                   72   54B                                                               
+ OUTDATA       1 00000179 00000001     C  C               135   82M                                                               
+ OUTDCB        4 00000268 00000001     F  F               197   51    89   116                                                    
+ PRINTLN       1 00000178 00000001     C  C               134   90                                                                
+ REGS          4 000000E0 00000001     F  F               130   21                                                                
+1                                          Macro and Copy Code Source Summary                                   Page    7         
+- Con Source                                        Volume    Members                        HLASM R6.0  2019/02/26 17.37         
+0  L1 SYS1.MACLIB                                   Z1RES1    ABEND    CLOSE    DCB      GET      IHBINNRA IHBINNRR               
+                                                              IHB01    OPEN     PUT      SYSSTATE                                 
+1                                                      Using Map                                                Page    8         
+-                                                                                            HLASM R6.0  2019/02/26 17.37         
+   Stmt  -----Location----- Action ----------------Using----------------- Reg Max     Last Label and Using Text                   
+           Count      Id           Type          Value    Range     Id        Disp    Stmt                                        
+0    20  00000006  00000001 USING  ORDINARY    00000000 00001000 00000001  12 00268    187 ASMPGM3,12                             
+1                                   General Purpose Register Cross Reference                                    Page    9         
+- Register  References (M=modified, B=branch, U=USING, D=DROP, N=index)                      HLASM R6.0  2019/02/26 17.37         
+0    0(0)      18    41M   42M   43    61M   62M   63    73M   90M  102M  121M                                                    
+     1(1)      18    29M   40M   43M   49M   60M   63M   72M   75    89M   92   101M  104   112M  121M                            
+     2(2)      18   121M                                                                                                          
+     3(3)      18   121M                                                                                                          
+     4(4)      18   121M                                                                                                          
+     5(5)      18   121M                                                                                                          
+     6(6)      18   121M                                                                                                          
+     7(7)      18   121M                                                                                                          
+     8(8)      18   121M                                                                                                          
+     9(9)      18   121M                                                                                                          
+    10(A)      18   121M                                                                                                          
+    11(B)      18   121M                                                                                                          
+    12(C)      18    19M   20U  121M                                                                                              
+    13(D)      18    22    24M  119M  119   120   121                                                                             
+    14(E)      18    21M   22    23    23    24    76M   93M  105M  120M  123B  188B                                              
+    15(F)      18    19    33M   33    53M   53    74M   74    75M   76B   91M   91    92M   93B  103M  103   104M  105B          
+1                                  Diagnostic Cross Reference and Assembler Summary                             Page   10         
+-                                                                                            HLASM R6.0  2019/02/26 17.37         
+0     No Statements Flagged in this Assembly                                                                                      
+ HIGH LEVEL ASSEMBLER, 5696-234, RELEASE 6.0, PTF UI11676                                                                         
+0SYSTEM: z/OS 02.01.00              JOBNAME: KC03H0AA    STEPNAME: JSTEP01    PROCSTEP: (NOPROC)                                  
+0Data Sets Allocated for this Assembly                                                                                            
+  Con DDname   Data Set Name                                Volume  Member                                                        
+   P1 SYSIN    KC03H0A.KC03H0AA.JOB02195.D0000101.?                                                                               
+   L1 SYSLIB   SYS1.MACLIB                                  Z1RES1                                                                
+      SYSLIN   SYS19057.T173749.RA000.KC03H0AA.OBJMOD.H01   TEMP00                                                                
+      SYSPRINT KC03H0A.KC03H0AA.JOB02195.D0000102.?                                                                               
+                                                                                                                                  
+   32100K allocated to Buffer Pool       Storage required     400K                                                                
+      97 Primary Input Records Read         3589 Library Records Read                  0 Work File Reads                          
+       0 ASMAOPT Records Read                226 Primary Print Records Written         0 Work File Writes                         
+      17 Object Records Written                0 ADATA Records Written                                                            
+0Assembly Start Time: 17.37.49 Stop Time: 17.37.49 Processor Time: 00.00.00.0036                                                  
+ Return Code 000                                                                                                                  
+1z/OS V2 R1 BINDER     17:37:48 TUESDAY FEBRUARY 26, 2019                                                                
+ BATCH EMULATOR  JOB(KC03H0AA) STEP(JSTEP02 ) PGM= HEWL                                                                  
+                                                                                                                         
+                                                                                                                         
+                                                                                                                         
+                                 *** O P E R A T I O N   S U M M A R Y   R E P O R T ***                                 
+                                                                                                                         
+1PROCESSING OPTIONS:                                                                                                     
+                                                                                                                         
+    ALIASES             NO                                                                                               
+    ALIGN2              NO                                                                                               
+    AMODE               UNSPECIFIED                                                                                      
+    CALL                YES                                                                                              
+    CASE                UPPER                                                                                            
+    COMPAT              UNSPECIFIED                                                                                      
+    COMPRESS            AUTO                                                                                             
+    DCBS                NO                                                                                               
+    DYNAM               NO                                                                                               
+    EXTATTR             UNSPECIFIED                                                                                      
+    EXITS:              NONE                                                                                             
+    FILL                NONE                                                                                             
+    GID                 UNSPECIFIED                                                                                      
+    HOBSET              NO                                                                                               
+    INFO                NO                                                                                               
+    LET                 04                                                                                               
+    LINECT              060                                                                                              
+    LIST                SUMMARY                                                                                          
+    LISTPRIV            NO                                                                                               
+    LONGPARM            NO                                                                                               
+    MAP                 NO                                                                                               
+    MAXBLK              032760                                                                                           
+    MODMAP              NO                                                                                               
+    MSGLEVEL            00                                                                                               
+    OVLY                NO                                                                                               
+    PRINT               YES                                                                                              
+    RES                 NO                                                                                               
+    REUSABILITY         UNSPECIFIED                                                                                      
+    RMODE               UNSPECIFIED                                                                                      
+    SIGN                NO                                                                                               
+    STORENX             NOREPLACE                                                                                        
+    STRIPCL             NO                                                                                               
+    STRIPSEC            NO                                                                                               
+    SYMTRACE                                                                                                             
+    TERM                NO                                                                                               
+    TRAP                ON                                                                                               
+    UID                 UNSPECIFIED                                                                                      
+    UPCASE              NO                                                                                               
+    WKSPACE             000000K,000000K                                                                                  
+    XCAL                NO                                                                                               
+    XREF                NO                                                                                               
+    ***END OF OPTIONS***                                                                                                 
+                                                                                                                         
+                                                                                                                         
+                                                                                                                         
+                                                                                                                         
+1SAVE OPERATION SUMMARY:                                                                                                 
+                                                                                                                         
+    MEMBER NAME         ASSIGN3                                                                                          
+    LOAD LIBRARY        KC03H0A.CSCI465.LOADLIB                                                                          
+    PROGRAM TYPE        PROGRAM OBJECT(FORMAT 2)                                                                         
+    VOLUME SERIAL       KCTR35                                                                                           
+    DISPOSITION         REPLACED                                                                                         
+    TIME OF SAVE        17.37.49  FEB 26, 2019                                                                           
+                                                                                                                         
+                                                                                                                         
+1SAVE MODULE ATTRIBUTES:                                                                                                 
+                                                                                                                         
+    AC                  000                                                                                              
+    AMODE                24                                                                                              
+    COMPRESSION         NONE                                                                                             
+    DC                  NO                                                                                               
+    EDITABLE            YES                                                                                              
+    EXCEEDS 16MB        NO                                                                                               
+    EXECUTABLE          YES                                                                                              
+    LONGPARM            NO                                                                                               
+    MIGRATABLE          YES                                                                                              
+    OL                  NO                                                                                               
+    OVLY                NO                                                                                               
+    PACK,PRIME          NO,NO                                                                                            
+    PAGE ALIGN          NO                                                                                               
+    REFR                NO                                                                                               
+    RENT                NO                                                                                               
+    REUS                NO                                                                                               
+    RMODE                24                                                                                              
+    SCTR                NO                                                                                               
+    SIGN                NO                                                                                               
+    SSI                                                                                                                  
+    SYM GENERATED       NO                                                                                               
+    TEST                NO                                                                                               
+    XPLINK              NO                                                                                               
+    MODULE SIZE (HEX)   000002C8                                                                                         
+    DASD SIZE (HEX)     00001000                                                                                         
+                                                                                                                         
+1 ENTRY POINT AND ALIAS SUMMARY:                                                                                         
+                                                                                                                         
+  NAME:            ENTRY TYPE AMODE C_OFFSET CLASS NAME        STATUS                                                    
+                                                                                                                         
+  ASMPGM3           MAIN_EP      24 00000000 B_TEXT                                                                      
+                                                                                                                         
+                          *** E N D   O F   O P E R A T I O N   S U M M A R Y   R E P O R T ***                          
+                                                                                                                         
+                                                                                                                         
+                                                                                                                         
+                                                                                                                         
+1z/OS V2 R1 BINDER     17:37:48 TUESDAY FEBRUARY 26, 2019                                                                
+ BATCH EMULATOR  JOB(KC03H0AA) STEP(JSTEP02 ) PGM= HEWL                                                                  
+ IEW2008I 0F03 PROCESSING COMPLETED.  RETURN CODE =  0.                                                                  
+                                                                                                                         
+                                                                                                                         
+                                                                                                                         
+1----------------------                                                                                                  
+ MESSAGE SUMMARY REPORT                                                                                                  
+ ----------------------                                                                                                  
+  TERMINAL MESSAGES      (SEVERITY = 16)                                                                                 
+  NONE                                                                                                                   
+                                                                                                                         
+  SEVERE MESSAGES        (SEVERITY = 12)                                                                                 
+  NONE                                                                                                                   
+                                                                                                                         
+  ERROR MESSAGES         (SEVERITY = 08)                                                                                 
+  NONE                                                                                                                   
+                                                                                                                         
+  WARNING MESSAGES       (SEVERITY = 04)                                                                                 
+  NONE                                                                                                                   
+                                                                                                                         
+  INFORMATIONAL MESSAGES (SEVERITY = 00)                                                                                 
+  2008                                                                                                                   
+                                                                                                                         
+                                                                                                                         
+  **** END OF MESSAGE SUMMARY REPORT ****                                                                                
+                                                                                                                         
+ QUOTATIONS FROM TWO IMPORTANT AMERICAN HISTORICAL DOCUMENTS    FALL 2018                                                         
+                                                                                                                                  
+ "We hold these truths to be self-evident, that all men are created                                                               
+ equal, that they are endowed by their Creator with certain unalienable                                                           
+ Rights, that among these are Life, Liberty and the pursuit of                                                                    
+ Happiness." -- Declaration of Independence, 1776                                                                                 
+                                                                                                                                  
+ and                                                                                                                              
+                                                                                                                                  
+ "We the People of the United States, in Order to form a more perfect                                                             
+ Union, establish Justice, insure domestic Tranquility, provide for the                                                           
+ common defence, promote the general Welfare, and secure the Blessings                                                            
+ of Liberty to ourselves and our Posterity, do ordain and establish this                                                          
+ Constitution of the United States of America." -- Preamble to the U.S.                                                           
+ Constitution, 1789                                                                                                               

@@ -1,0 +1,724 @@
+//KC03H0AA JOB ,'MEYER',MSGCLASS=H
+//JSTEP01  EXEC PGM=SORT,PARM='CMP=CLC'
+//*
+//SORTIN   DD DSN=KC02322.CSCI465.DATASP19(DATA7),DISP=SHR
+//SORTOUT  DD DSN=&&SORTED,SPACE=(TRK,(1,5)),DISP=(NEW,PASS)
+//*
+//SYSOUT   DD SYSOUT=*
+//*
+//SYSIN    DD *
+  SORT FIELDS(1,3,ZD,A)
+/*
+//*
+//JSTEP02  EXEC PGM=IGYCRCTL,REGION=0M,PARM=APOST
+//SYSLIB   DD DSN=KC02322.CSCI465.COPYLIB,DISP=SHR
+//SYSIN    DD *
+      ****************************************************************
+      *                                                              *
+      * PROGRAM NAME:  COBOL                                         *
+      *                                                              *
+      * FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN    *
+      *            WRITES THEM TO STANDARD OUTPUT.                   *
+      *                                                              *
+      * INPUT:     INFILE - THE INPUT DATA RECORDS READ IN.          *
+      *                                                              *
+      * OUTPUT:    OUTFILE - THE INPUT DATA RECORDS WRITTEN OUT.     *
+      *                                                              *
+      ****************************************************************
+
+       IDENTIFICATION DIVISION.
+
+       PROGRAM-ID.    SALESRPT.
+       AUTHOR.        JOE MEYER.
+       DATE-WRITTEN.  04/29/2019.
+       DATE-COMPILED.
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+
+       FILE-CONTROL.
+
+      * TAKE IN THE WRITE AND OUTPUT FILES *
+
+           SELECT SALES-FILE ASSIGN TO SALESFLE.
+           SELECT REPORT-FILE ASSIGN TO RPTFLE.
+
+       DATA DIVISION.
+
+       FILE SECTION.
+
+      * TAKE IN SALES-FILE AND THE REPORT-FILES FOR SAVING DATA *
+
+       FD  SALES-FILE
+           RECORDING MODE IS F.
+
+       COPY SALESREC.
+
+       FD  REPORT-FILE
+           RECORDING MODE IS F.
+
+       01  REPORT-RECORD              PIC X(132).
+
+       WORKING-STORAGE SECTION.
+
+      * THIS PULLS IN THE DATA FROM THE TABLE GIVEN FROM THE *
+      * ASSEMBLER PROGRAM TO BE USED IN COBOL *
+
+       01  FUND-TBL.
+           05  TBL-FUND-CTR           PIC S9(3) BINARY SYNC VALUE 0.
+           05  TBL-FUND-NTRY          OCCURS 1 TO 199 TIMES
+                                      DEPENDING ON TBL-FUND-CTR
+                                      ASCENDING KEY TBL-FUND-NBR
+                                      INDEXED BY TBL-FUND-NDX.
+
+       COPY FUNDTBL.
+
+       01  EOF-FLAG                   PIC X VALUE 'N'.
+
+       01  SUBPROGRAM                 PIC X(8) VALUE 'BUILDTBL'.
+
+      * THESE ARE ALL THE VARIABLES FOR THE COBOL PROGRAM *
+      * BELOW *
+
+       01  VARIABLES.
+           05  LINE-CTR               PIC S9(2) BINARY SYNC VALUE 99.
+           05  PAGE-CTR               PIC S9(3) PACKED-DECIMAL
+                                      VALUE 0.
+           05  SALES-CTR              PIC S9(3) PACKED-DECIMAL
+                                      VALUE 0.
+           05  BROKER-CTR             PIC S9(3) PACKED-DECIMAL
+                                      VALUE 0.
+           05  P-DEP-AMT              PIC S9(8)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  P-SHR-PRC              PIC S9(3)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  P-SHR-AMT              PIC S9(10)V9(4) PACKED-DECIMAL
+                                      VALUE 0.
+           05  P-COMM-P               PIC S9V9(5) PACKED-DECIMAL
+                                      VALUE 0.
+           05  P-COMM-AMT             PIC S9(8)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  TOT-DEP-AMT            PIC S9(11)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  TOT-COMM-AMT           PIC S9(11)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  AVG-DEP-AMT            PIC S9(11)V99 PACKED-DECIMAL
+                                      VALUE 0.
+
+      * THIS IS THE MAIN RINT LINE HEADER FOR ALL THE DATA *
+      * ALSO BELOW HAS ALL THE HEADER FAIRLY WELL NAMED *
+      * IT WILL BE EASY TO FIND THE CORRECT OUTPUT *
+
+       01  PRINT-LINE.
+           05  O-BRANCH-NME            PIC X(25).
+           05  FILLER                  PIC X VALUE SPACE.
+           05  O-BROKER-NME            PIC X(25).
+           05  FILLER                  PIC X(2) VALUE SPACES.
+           05  O-FUND-NBR              PIC 999.
+           05  FILLER                  PIC X(2) VALUE SPACES.
+           05  O-FUND-NME              PIC X(25).
+           05  FILLER                  PIC X VALUE SPACES.
+           05  O-DEP-AMT               PIC $$$,$$$,$$9.99.
+           05  FILLER                  PIC X VALUE SPACES.
+           05  O-SHR-AMT               PIC Z,ZZZ,ZZZ,ZZ9.9999.
+           05  FILLER                  PIC X VALUE SPACES.
+           05  O-COMM-AMT              PIC $$$,$$$,$$9.99.
+
+       01  PRINT-HEADER-1.
+           05  OUT-CURRENT-DATE.
+             10  CURRENT-MONTH        PIC 9(2).
+             10  FILLER               PIC X(1) VALUE '/'.
+             10  CURRENT-DAY          PIC 9(2).
+             10  FILLER               PIC X(1) VALUE '/'.
+             10  CURRENT-YEAR         PIC 9(4).
+           05  FILLER                 PIC X(42) VALUE SPACES.
+           05  FILLER                 PIC X(28) VALUE
+                        'FEELINGS MUTUAL FUND COMPANY'.
+           05  FILLER                 PIC X(43) VALUE SPACES.
+           05  FILLER                 PIC X(6) VALUE 'PAGE: '.
+           05  O-PAGE-CTR             PIC ZZ9.
+
+       01  PRINT-HEADER-2.
+           05 OUT-CURRENT-TIME.
+             10  CURRENT-HOUR         PIC 9(2).
+             10  FILLER               PIC X(1) VALUE ':'.
+             10  CURRENT-MINUTE       PIC 9(2).
+             10  FILLER               PIC X(1) VALUE ':'.
+             10  CURRENT-SECOND       PIC 9(2).
+           05  FILLER                 PIC X(43) VALUE SPACES.
+           05  FILLER                 PIC X(30) VALUE
+                             'MUTUAL FUND DAILY SALES REPORT'.
+           05  FILLER                 PIC X(51) VALUE SPACES.
+
+       01  PRINT-HEADER-3.
+           05  FILLER                 PIC X(56) VALUE SPACES.
+           05  FILLER                 PIC X(20) VALUE
+                                      '****** TOTALS ******'.
+           05  FILLER                 PIC X(56) VALUE SPACES.
+
+       01  PRINT-HEADER-4.
+           05  FILLER                 PIC X(52) VALUE SPACES.
+           05  FILLER                 PIC X(4) VALUE 'FUND'.
+           05  FILLER                 PIC X(35) VALUE SPACES.
+           05  FILLER                 PIC X(7) VALUE 'DEPOSIT'.
+           05  FILLER                 PIC X(24) VALUE SPACES.
+           05  FILLER                 PIC X(10) VALUE 'COMMISSION'.
+
+       01  PRINT-HEADER-5.
+           05  FILLER                 PIC X(11) VALUE 'BRANCH NAME'.
+           05  FILLER                 PIC X(15) VALUE SPACES.
+           05  FILLER                 PIC X(11) VALUE 'BROKER NAME'.
+           05  FILLER                 PIC X(16) VALUE SPACES.
+           05  FILLER                 PIC X(3) VALUE 'NBR'.
+           05  FILLER                 PIC X(2) VALUE SPACES.
+           05  FILLER                 PIC X(9) VALUE 'FUND NAME'.
+           05  FILLER                 PIC X(25) VALUE SPACES.
+           05  FILLER                 PIC X(6) VALUE 'AMOUNT'.
+           05  FILLER                 PIC X(8) VALUE SPACES.
+           05  FILLER                 PIC X(11) VALUE 'SHARES SOLD'.
+           05  FILLER                 PIC X(9) VALUE SPACES.
+           05  FILLER                 PIC X(6) VALUE 'AMOUNT'.
+
+       01  PRINT-HEADER-6.
+           05  FILLER                 PIC X(26) VALUE SPACES.
+           05  FILLER                 PIC X(7) VALUE 'BROKERS'.
+           05  FILLER                 PIC X(11) VALUE SPACES.
+           05  FILLER                 PIC X(15) VALUE
+                                      'NUMBER OF SALES'.
+           05  FILLER                 PIC X(25) VALUE SPACES.
+           05  FILLER                 PIC X(14) VALUE
+                                      'TOTAL DEPOSITS'.
+           05  FILLER                 PIC X(17) VALUE SPACES.
+           05  FILLER                 PIC X(17) VALUE
+                                      'TOTAL COMMISSIONS'.
+
+       01  HYPHEN-1.
+           05  FILLER                 PIC X(25) VALUE ALL '-'.
+           05  FILLER                 PIC X(1) VALUE SPACES.
+           05  FILLER                 PIC X(25) VALUE ALL '-'.
+           05  FILLER                 PIC X(1) VALUE SPACES.
+           05  FILLER                 PIC X(4) VALUE ALL '-'.
+           05  FILLER                 PIC X(2) VALUE SPACES.
+           05  FILLER                 PIC X(25) VALUE ALL '-'.
+           05  FILLER                 PIC X(1) VALUE SPACES.
+           05  FILLER                 PIC X(14) VALUE ALL '-'.
+           05  FILLER                 PIC X(1) VALUE SPACES.
+           05  FILLER                 PIC X(18) VALUE ALL '-'.
+           05  FILLER                 PIC X(1) VALUE  SPACES.
+           05  FILLER                 PIC X(14) VALUE ALL '-'.
+
+       01  HYPHEN-2.
+           05  FILLER                 PIC X(26) VALUE SPACES.
+           05  FILLER                 PIC X(7) VALUE ALL '-'.
+           05  FILLER                 PIC X(11) VALUE SPACES.
+           05  FILLER                 PIC X(15) VALUE ALL '-'.
+           05  FILLER                 PIC X(21) VALUE SPACES.
+           05  FILLER                 PIC X(18) VALUE ALL '-'.
+           05  FILLER                 PIC X(16) VALUE SPACES.
+           05  FILLER                 PIC X(18) VALUE ALL '-'.
+
+       01  SALES-TOTAL.
+           05  FILLER                 PIC X(30) VALUE SPACES.
+           05  O-BROKER-CTR           PIC ZZ9.
+           05  FILLER                 PIC X(23) VALUE SPACES.
+           05  O-SALES-CTR            PIC ZZ9.
+           05  FILLER                 PIC X(21) VALUE SPACES.
+           05  O-TOT-DEP-AMT          PIC $$$,$$$,$$$,$$9.99.
+           05  FILLER                 PIC X(16) VALUE SPACES.
+           05  O-TOT-COMM-AMT         PIC $$$,$$$,$$$,$$9.99.
+
+       01  AVG-DEPOSIT.
+           05  FILLER                 PIC X(52) VALUE SPACES.
+           05  FILLER                 PIC X(28)
+                      VALUE 'AVERAGE DEPOSIT BY BROKER:  '.
+           05  O-AVG-DEP-AMT          PIC $$$,$$$,$$$,$$9.99.
+           05  FILLER                 PIC X(34) VALUE SPACES.
+
+      * VARIABLES FOR THE CURRENT TIME *
+
+       01  CURRENT-DATE-FIELDS.
+           05  CURRENT-DATE.
+             10  CURRENT-YEAR         PIC 9(4).
+             10  CURRENT-MONTH        PIC 9(2).
+             10  CURRENT-DAY          PIC 9(2).
+           05 CURRENT-TIME.
+             10  CURRENT-HOUR         PIC 9(2).
+             10  CURRENT-MINUTE       PIC 9(2).
+             10  CURRENT-SECOND       PIC 9(2).
+             10  CURRENT-MS           PIC 9(2).
+           05 DIFF-FROM-GMT           PIC S9(4).
+
+       PROCEDURE DIVISION.
+
+       0000-MAIN.
+
+      * THIS GRABS THE TIME FOR THE PROGRAM AND SETS IT *
+
+           PERFORM 0100-GET-DATE-AND-TIME.
+
+      * CALL THE PROGRAM TO WRITE THE TBL RECORD *
+
+           CALL SUBPROGRAM USING FUND-TBL.
+
+      * OPEN THE INPUT FOR THE SALES-FILE AND REPORT FILE *
+
+           OPEN INPUT SALES-FILE
+                OUTPUT REPORT-FILE
+
+      * READ IN THE SALES-FILE AND READ TILL END OF THE EOF-FLAG *
+
+           READ SALES-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+
+      * THIS PROCESSES THE BROKER AND STARTS GRABBING THE DATA *
+      * AND THE FILES *
+
+           PERFORM 0200-PROCESS-BROKER
+              UNTIL EOF-FLAG = 'Y'.
+
+      * THIS IS THE END TOTALS FOR THE ASSIGNMENT AND TAKES IN FROM *
+      * 300 PROCESS BROKER *
+
+           PERFORM 0700-PROCESS-TOTALS.
+
+      * MOVE 0 TO THE RETURN CODE TO MARK END OF THE PROGRAM *
+
+           MOVE 0 TO RETURN-CODE.
+
+           GOBACK.
+
+       0000-EXIT. EXIT.
+
+      * THIS FUNCTION JUST MOVES THE TIME INTO THE VARIABLES *
+
+       0100-GET-DATE-AND-TIME.
+           MOVE FUNCTION CURRENT-DATE TO CURRENT-DATE-FIELDS.
+           MOVE CORRESPONDING CURRENT-DATE TO OUT-CURRENT-DATE.
+           MOVE CORRESPONDING CURRENT-TIME  TO OUT-CURRENT-TIME.
+       0100-EXIT. EXIT.
+
+      * THIS READS THE SALES-FILES ADN CALLS THE 300 FUNCTION *
+
+       0200-PROCESS-BROKER.
+           ADD 1 TO BROKER-CTR.
+
+      * CALL THE PROCESS SALE FUNCTION *
+
+           PERFORM 0300-PROCESS-SALE VARYING SALE-NDX FROM 1 BY 1
+                UNTIL SALE-NDX > 4
+                  OR SALE-FUND-NBR (SALE-NDX) = 0.
+
+      * READING THE SALES-FILE AND KEEP READING IT *
+
+           READ SALES-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+       0200-EXIT. EXIT.
+
+      * THIS IS THE PROCESS SALES FUCNTION IT PROCESSES SALES *
+      * RECORD *
+
+       0300-PROCESS-SALE.
+           ADD 1 TO SALES-CTR.
+
+      * THIS ADDS THE SALES-BRANCH NAME UNLESS ITS A 0 *
+      * THEN IT COMES UP AS A BLANK LINE *
+
+           IF SALE-NDX = 1
+             MOVE SALES-BRANCH-NME TO O-BRANCH-NME
+             MOVE SALES-BROKER-NME TO O-BROKER-NME
+           ELSE
+             MOVE SPACES TO O-BRANCH-NME
+             MOVE SPACES TO O-BROKER-NME
+           END-IF.
+
+      * MOVE THE DEP AND FUND NBR TO THE SALE-NDX *
+
+           MOVE SALE-FUND-NBR (SALE-NDX) TO O-FUND-NBR.
+           MOVE SALE-DEP-AMT (SALE-NDX) TO O-DEP-AMT.
+
+      * THIS OMPUTES THE TOTAL-DEPAMT USED IN THE PROCESS TOTALS *
+      * FUNCTION *
+
+           COMPUTE TOT-DEP-AMT ROUNDED =
+             TOT-DEP-AMT + SALE-DEP-AMT (SALE-NDX).
+
+      * SEARCH THE TABEL ENTRY FOR THE FUND RECORDS AND FIND IF *
+      * THEY'RE BLANK OR NOT *
+
+           SEARCH ALL TBL-FUND-NTRY
+             AT END
+               PERFORM 0400-FUND-NOT-FOUND
+             WHEN TBL-FUND-NBR (TBL-FUND-NDX) =
+                        SALE-FUND-NBR (SALE-NDX)
+               PERFORM 0500-FUND-FOUND
+           END-SEARCH.
+
+      * WRITE THE HEADERS IF THE LINE CTR GETS TO 15 TO MAKE A NEW *
+      * LINE *
+
+           IF LINE-CTR >= 15
+             PERFORM 0600-WRITE-HEADERS.
+
+      * WRITE THE RECORDS FOR THE MAIN LINES OF THE PROGRAM *
+
+           WRITE REPORT-RECORD FROM PRINT-LINE AFTER 2.
+
+      * ADD 1 TO THE LINE CTR TO CHECK FOR THE 15 > *
+
+           ADD 1 TO LINE-CTR.
+       0300-EXIT. EXIT.
+
+       0400-FUND-NOT-FOUND.
+
+      * MOVE THE FUND NOT FOUND TO OUT NAME FOR MISSING FUNDS *
+
+           MOVE '**** FUND NOT FOUND *****' TO O-FUND-NME.
+
+      * MOVE 0 TO SHR AMT AND COMMISSION TO NULL IT *
+
+           MOVE 0 TO O-SHR-AMT
+                     O-COMM-AMT.
+       0400-EXIT. EXIT.
+
+       0500-FUND-FOUND.
+
+      * MOVE THE TABLE FUND TO BE PROCESSED AND WRITTEN *
+
+           MOVE TBL-FUND-NME (TBL-FUND-NDX) TO O-FUND-NME.
+           MOVE SALE-DEP-AMT (SALE-NDX) TO P-DEP-AMT.
+           MOVE TBL-FUND-SHR-PRC (TBL-FUND-NDX) TO P-SHR-PRC.
+           MOVE TBL-FUND-COMM-PCT (TBL-FUND-NDX) TO P-COMM-P.
+
+      * CALL THE CALCVALS PROGRAM TO ADD THE FUND TABLE ENTRY *
+
+           CALL 'CALCVALS' USING P-DEP-AMT
+                                 P-SHR-PRC
+                                 P-COMM-P
+                                 P-SHR-AMT
+                                 P-COMM-AMT.
+
+      * MOVE THE PACKED SHR AMT TO OUT SHR AMT *
+
+           MOVE P-SHR-AMT TO O-SHR-AMT.
+
+      * MOVE THE PACKED COMM AMT TO OUT COMM AMT *
+
+           MOVE P-COMM-AMT TO O-COMM-AMT.
+
+      * COMPUTE THE TOTAL COMM AMT AND ROUND IT *
+
+           COMPUTE TOT-COMM-AMT ROUNDED =
+                        TOT-COMM-AMT + P-COMM-AMT.
+       0500-EXIT. EXIT.
+
+       0600-WRITE-HEADERS.
+
+      * THIS ADDS TO THE PAGE COUNTER VARIABLE *
+
+           ADD 1 TO PAGE-CTR.
+           MOVE PAGE-CTR TO O-PAGE-CTR.
+
+      * WRITE THE OUTPUT FOR THE MAIN HEADERS ON EACH LINE *
+
+           WRITE REPORT-RECORD FROM PRINT-HEADER-1 AFTER PAGE.
+           WRITE REPORT-RECORD FROM PRINT-HEADER-2 AFTER 1.
+           WRITE REPORT-RECORD FROM PRINT-HEADER-4 AFTER 2.
+           WRITE REPORT-RECORD FROM PRINT-HEADER-5 AFTER 1.
+           WRITE REPORT-RECORD FROM HYPHEN-1 AFTER 1.
+
+      * MOVE 0 TO THE LINE COUNTER TO RESET THE COUNTER *
+
+           MOVE 0 TO LINE-CTR.
+       0600-EXIT. EXIT.
+
+       0700-PROCESS-TOTALS.
+           ADD 1 TO PAGE-CTR.
+
+      * THIS MOVES IN ALL THE DATA POINTS TO THE WRITE LINE *
+
+           MOVE PAGE-CTR TO O-PAGE-CTR.
+           MOVE BROKER-CTR TO O-BROKER-CTR.
+           MOVE SALES-CTR TO O-SALES-CTR.
+           MOVE TOT-DEP-AMT TO O-TOT-DEP-AMT.
+           MOVE TOT-COMM-AMT TO O-TOT-COMM-AMT.
+
+      * WRITE ALL THE RECORDS FOR THE PROCESS TOTALS *
+
+           WRITE REPORT-RECORD FROM PRINT-HEADER-1 AFTER PAGE.
+           WRITE REPORT-RECORD FROM PRINT-HEADER-2 AFTER 1.
+           WRITE REPORT-RECORD FROM PRINT-HEADER-3 AFTER 2.
+           WRITE REPORT-RECORD FROM PRINT-HEADER-6 AFTER 2.
+           WRITE REPORT-RECORD FROM HYPHEN-2 AFTER 2.
+           WRITE REPORT-RECORD FROM SALES-TOTAL AFTER 1.
+
+      * THIS COMPUTES THE AVERAGE DEPOSIT AMOUNT *
+
+           COMPUTE AVG-DEP-AMT ROUNDED =
+             TOT-DEP-AMT / BROKER-CTR.
+
+      * THIS MOVE THE AVERAGE DEPOSIT AMOUNT *
+
+           MOVE AVG-DEP-AMT TO O-AVG-DEP-AMT.
+
+      * WRITE THE AVERAGE DEPOSIT TO REPORT RECORD *
+
+           WRITE REPORT-RECORD FROM AVG-DEPOSIT AFTER 2.
+       0700-EXIT. EXIT.
+/*
+//SYSLIN   DD DSN=&&OBJMOD1,SPACE=(CYL,(1,1)),DISP=(MOD,PASS)
+//SYSPRINT DD SYSOUT=*
+//SYSMDECK DD SPACE=(CYL,(1,1))
+//SYSUT1   DD SPACE=(CYL,(1,1))
+//SYSUT2   DD SPACE=(CYL,(1,1))
+//SYSUT3   DD SPACE=(CYL,(1,1))
+//SYSUT4   DD SPACE=(CYL,(1,1))
+//SYSUT5   DD SPACE=(CYL,(1,1))
+//SYSUT6   DD SPACE=(CYL,(1,1))
+//SYSUT7   DD SPACE=(CYL,(1,1))
+//SYSUT8   DD SPACE=(CYL,(1,1))
+//SYSUT9   DD SPACE=(CYL,(1,1))
+//SYSUT10  DD SPACE=(CYL,(1,1))
+//SYSUT11  DD SPACE=(CYL,(1,1))
+//SYSUT12  DD SPACE=(CYL,(1,1))
+//SYSUT13  DD SPACE=(CYL,(1,1))
+//SYSUT14  DD SPACE=(CYL,(1,1))
+//SYSUT15  DD SPACE=(CYL,(1,1))
+//*
+//JSTEP03  EXEC PGM=ASMA90,PARM=ASA,COND=(0,LT)
+//SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR
+//SYSIN    DD *
+**********************************************************************
+*                                                                    *
+* PROGRAM:    ASSIGN7                                                *
+* AUTHOR:     JOE MEYER                                              *
+* DATE:       04/08/2019                                             *
+*                                                                    *
+* FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN WRITES   *
+*            THEM TO STANDARD OUTPUT.                                *
+*                                                                    *
+* INPUT:     INPUT - THE INPUT DATA RECORDS READ IN.                 *
+*                                                                    *
+* OUTPUT:    OUTPUT - THE INPUT DATA RECORDS WRITTEN OUT.            *
+*                                                                    *
+**********************************************************************
+CALCVALS CSECT                       BEGIN CALCVALS
+*
+         STM   14,12,12(13)          SAVE CALLER'S REGS
+         LR    12,15                 SET R12 TO R15
+         USING CALCVALS,12           ESTABLISH R12 AS 1ST BASE REG
+         LA    14,SAVEREGS           R14 -> CURRENT SAVE AREA
+         ST    13,4(,14)             SAVE CALLER'S SAVE AREA ADDR
+         ST    14,8(,14)             SAVE CURRENT SAVE AREA ADDR
+         LR    13,14                 R13 -> CURRENT SAVE AREA
+*
+         LM 2,6,0(1)                 LOAD REGISTERS 2 TO 6
+*
+         ZAP   CALCSHR(11),0(6,2)    MOVE THE VALUE TO CALCSHR
+         SRP   CALCSHR(11),4,0       ROUND THE VALUE TO CALCSHR
+         DP    CALCSHR(11),0(3,3)    DIVIDE THE VALUE TO CALCSHR
+         SRP   CALCSHR(8),64-1,5     ROUND THE VALUE TO CALCSHR
+         SRP   CALCSHR(8),1,0        ROUND THE R8 FROM CALCSHR
+         ZAP   0(8,5),CALCSHR(8)     MOVE THE R8 TO R5 FOR VALUE
+*
+         ZAP   CALCSHR(11),0(6,2)    MOVE THE VALUE CALSHR TO 6,2
+         MP    CALCSHR(11),0(4,4)    MULTIPLY THE PA R11 CALCSHR
+         SRP   CALCSHR(11),64-5,5    ROUND THE R11 TO CALCSHR VALUE
+         ZAP   0(6,6),CALCSHR+5(6)   MOVE THE CALSHR OFF OF R6
+*
+         SR    15,15                 SUBTRACT REGISTER 15 FROM 15
+         L     13,4(,13)             R13 -> CALLER'S SAVE AREA
+         L     14,12(,13)            RESTORE R14
+         LM    0,12,20(13)           RESTORE R0 THROUGH R12
+*
+         BR    14                    RETURN TO CALLER
+*
+         LTORG                       LTORG TO ORGANIZE LITERALS
+*
+         ORG   CALCVALS+((*-CALCVALS+31)/32)*32
+         DC    C'HERE IS THE STORAGE FOR: CALCVALS'
+*
+SAVEREGS DC    18F'0'             18 FULLWORDS OF STORAGE
+CALCSHR  DC    PL11'0'            11 BYTES OF STORAGE FOR PACK DE
+*
+         END   CALCVALS
+/*
+//SYSLIN   DD DSN=&&OBJMOD2,SPACE=(3040,(40,40),,,ROUND),
+//            DISP=(MOD,PASS)
+//SYSPRINT DD SYSOUT=*
+//*
+//SYSUT1   DD SPACE=(CYL,(1,1))
+//*
+//JSTEP04  EXEC PGM=HEWL,COND=(0,LT)
+//SYSLIB   DD DSN=CEE.SCEELKED,DISP=SHR
+//*
+//SYSLIN   DD DSN=&&OBJMOD1,DISP=(MOD,DELETE,DELETE)
+//         DD DSN=&&OBJMOD2,DISP=(MOD,DELETE,DELETE)
+//*
+//SYSLMOD  DD DSN=KC03H0A.CSCI465.LOADLIB(SALESRPT),
+//            SPACE=(1024,(50,20,1)),DSNTYPE=LIBRARY,
+//            DISP=(MOD,KEEP,KEEP)
+//*
+//SYSPRINT DD SYSOUT=*
+//SYSUT1   DD SPACE=(1024,(120,120),,,ROUND)
+//*
+//JSTEP05  EXEC PGM=IGYCRCTL,REGION=0M,PARM='APOST,LIST'
+//SYSLIB   DD DSN=KC02322.CSCI465.COPYLIB,DISP=SHR
+//SYSIN    DD *
+      ****************************************************************
+      *                                                              *
+      * PROGRAM NAME:  COBOL                                         *
+      *                                                              *
+      * FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN    *
+      *            WRITES THEM TO STANDARD OUTPUT.                   *
+      *                                                              *
+      * INPUT:     INFILE - THE INPUT DATA RECORDS READ IN.          *
+      *                                                              *
+      * OUTPUT:    OUTFILE - THE INPUT DATA RECORDS WRITTEN OUT.     *
+      *                                                              *
+      ****************************************************************
+
+       IDENTIFICATION DIVISION.
+
+       PROGRAM-ID.    BUILDTBL.
+       AUTHOR.        JOE MEYER.
+       DATE-WRITTEN.  04/29/2019.
+       DATE-COMPILED.
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+
+      * TAKE IN DATA FROM INPUT RECORDS *
+
+       FILE-CONTROL.
+
+           SELECT FUND-FILE ASSIGN TO FUNDFLE.
+
+       DATA DIVISION.
+
+       FILE SECTION.
+
+      * THIS USES THE FUND FILE FROM THE JCL *
+
+       FD  FUND-FILE
+           RECORDING MODE IS F.
+
+      * THIS MAKES A COPY OF THE FUND FILE *
+
+       COPY FUNDREC.
+           05  FILLER                 PIC X(41).
+
+       WORKING-STORAGE SECTION.
+
+       01  EOF-FLAG                   PIC X VALUE 'N'.
+
+      * THIS IS THE FUND TBL RECORD FOR 200 TOTAL RECORDS *
+
+       LINKAGE SECTION.
+       01  FUND-TBL.
+           05  TBL-FUND-CTR           PIC S9(3) BINARY SYNC.
+           05  TBL-FUND-NTRY          OCCURS 1 TO 199 TIMES
+                                      DEPENDING ON TBL-FUND-CTR
+                                      ASCENDING KEY TBL-FUND-NBR
+                                      INDEXED BY TBL-FUND-NDX.
+
+      * THIS MAKES A COPY OF THE FUND TABLE *
+
+       COPY FUNDTBL.
+
+       PROCEDURE DIVISION USING FUND-TBL.
+
+       0000-MAIN.
+
+      * OPENS THE FUND-FILE TO BE READ FOR INPUT *
+
+           OPEN INPUT FUND-FILE.
+
+      * THIS READS IN THE FUND FILE *
+
+           READ FUND-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+
+      * THIS PERFORMS THE ADD FUND ENTRY TO BE PROCESS FOR 200 *
+      * TOTAL RECORDS *
+
+           PERFORM 0100-ADD-FUND-NTRY VARYING TBL-FUND-NDX
+              FROM 1 BY 1 UNTIL EOF-FLAG = 'Y'
+                              OR TBL-FUND-NDX > 199.
+
+      * THIS CLOSES THE FUND FILE *
+
+           CLOSE FUND-FILE.
+
+      * MOVE RETURN CODE 0 TO SIGNAL IT IS DONE WITH THE PROGRAM *
+
+           MOVE 0 TO RETURN-CODE.
+           GOBACK.
+
+       0000-EXIT. EXIT.
+
+      * THIS IS THE FUNCTION ADD ENTRY TO THE FUND TABLE *
+
+       0100-ADD-FUND-NTRY.
+           ADD 1 TO TBL-FUND-CTR.
+
+      * THIS MOVES IN THE FUND TABLE AND ADDS THE RCORDS TO BE *
+      * PROESSED BY TEH SALES RECORD *
+
+           MOVE IN-FUND-NBR TO TBL-FUND-NBR (TBL-FUND-NDX).
+           MOVE IN-FUND-NME TO TBL-FUND-NME (TBL-FUND-NDX).
+           MOVE IN-FUND-SHR-PRC TO TBL-FUND-SHR-PRC (TBL-FUND-NDX).
+           MOVE IN-FUND-COMM-PCT TO TBL-FUND-COMM-PCT (TBL-FUND-NDX).
+
+      * THIS READS THE FUND-FILE IN *
+
+           READ FUND-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+       0100-EXIT. EXIT.
+/*
+//SYSLIN   DD DSN=&&OBJMOD3,SPACE=(CYL,(1,1)),DISP=(MOD,PASS)
+//SYSPRINT DD SYSOUT=*
+//SYSMDECK DD SPACE=(CYL,(1,1))
+//SYSUT1   DD SPACE=(CYL,(1,1))
+//SYSUT2   DD SPACE=(CYL,(1,1))
+//SYSUT3   DD SPACE=(CYL,(1,1))
+//SYSUT4   DD SPACE=(CYL,(1,1))
+//SYSUT5   DD SPACE=(CYL,(1,1))
+//SYSUT6   DD SPACE=(CYL,(1,1))
+//SYSUT7   DD SPACE=(CYL,(1,1))
+//SYSUT8   DD SPACE=(CYL,(1,1))
+//SYSUT9   DD SPACE=(CYL,(1,1))
+//SYSUT10  DD SPACE=(CYL,(1,1))
+//SYSUT11  DD SPACE=(CYL,(1,1))
+//SYSUT12  DD SPACE=(CYL,(1,1))
+//SYSUT13  DD SPACE=(CYL,(1,1))
+//SYSUT14  DD SPACE=(CYL,(1,1))
+//SYSUT15  DD SPACE=(CYL,(1,1))
+//*
+//JSTEP06  EXEC PGM=HEWL,COND=(0,LT)
+//*
+//SYSLIB   DD DSN=CEE.SCEELKED,DISP=SHR
+//*
+//SYSLIN   DD DSN=&&OBJMOD3,DISP=(MOD,DELETE,DELETE)
+//*
+//SYSLMOD  DD DSN=KC03H0A.CSCI465.LOADLIB(BUILDTBL),
+//            SPACE=(1024,(50,20,1)),DSNTYPE=LIBRARY,
+//            DISP=(MOD,KEEP,KEEP)
+//*
+//SYSPRINT DD SYSOUT=*
+//*
+//JSTEP07  EXEC PGM=SALESRPT,COND=(0,LT)
+//*
+//STEPLIB   DD DSN=KC03H0A.CSCI465.LOADLIB,DISP=SHR
+//*
+//SALESFLE  DD DSN=KC02322.CSCI465.DATA7(SALES),DISP=SHR
+//FUNDFLE   DD DSN=&&SORTED,DISP=(OLD,DELETE,DELETE)
+//RPTFLE    DD SYSOUT=*
+//*
+//SYSUDUMP  DD SYSOUT=*
+//

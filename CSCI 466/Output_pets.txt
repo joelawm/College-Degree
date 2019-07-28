@@ -1,0 +1,8 @@
+MariaDB [z1788150]> CREATE TABLE Dogs(
+    -> dog_id int NOT NULL AUTO_INCREMENT,
+    ->         breed varchar(255),
+    ->         name varchar(255),
+    -> PRIMARY KEY (dog_id)
+    -> );
+ERROR 1050 (42S01): Table 'Dogs' already exists
+MariaDB [z1788150]> \t

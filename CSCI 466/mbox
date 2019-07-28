@@ -1,0 +1,198 @@
+From z1788150@hopper.cs.niu.edu Thu Sep 28 23:02:53 2017
+Return-path: <z1788150@hopper.cs.niu.edu>
+Envelope-to: z1788150@hopper.cs.niu.edu
+Delivery-date: Thu, 28 Sep 2017 23:02:53 -0500
+Received: from z1788150 by hopper.cs.niu.edu with local (Exim 4.84_2)
+	(envelope-from <z1788150@hopper.cs.niu.edu>)
+	id 1dxmVp-0007aq-1K; Thu, 28 Sep 2017 23:02:53 -0500
+To: t90kjm1@hopper.cs.niu.edu, z1788150@hopper.cs.niu.edu, 
+	z1807516@hopper.cs.niu.edu
+Subject: HW: CSCI 241 : Program 2 Section 1
+Message-Id: <E1dxmVp-0007aq-1K@hopper.cs.niu.edu>
+From: Joseph Meyer <z1788150@hopper.cs.niu.edu>
+Date: Thu, 28 Sep 2017 23:02:53 -0500
+Status: RO
+
+Course: 241
+Program: 2
+Section: 1
+User: z1788150
+Name: Joseph Meyer
+#!/bin/sh
+# This is a shell archive (produced by GNU sharutils 4.14).
+# To extract the files from this archive, save it to some FILE, remove
+# everything before the '#!/bin/sh' line above, then type 'sh FILE'.
+#
+lock_dir=_sh29186
+# Made on 2017-09-28 23:02 CDT by <z1788150@hopper>.
+# Source directory was '/home/turing/z1788150/csci241/Assign2'.
+#
+# Existing files will *not* be overwritten, unless '-c' is specified.
+#
+# This shar contains:
+# length mode       name
+# ------ ---------- ------------------------------------------
+#   2655 -rw-r--r-- mailprog.29176
+#
+MD5SUM=${MD5SUM-md5sum}
+f=`${MD5SUM} --version | egrep '^md5sum .*(core|text)utils'`
+test -n "${f}" && md5check=true || md5check=false
+${md5check} || \
+  echo 'Note: not verifying md5sums.  Consider installing GNU coreutils.'
+if test "X$1" = "X-c"
+then keep_file=''
+else keep_file=true
+fi
+echo=echo
+save_IFS="${IFS}"
+IFS="${IFS}:"
+gettext_dir=
+locale_dir=
+set_echo=false
+
+for dir in $PATH
+do
+  if test -f $dir/gettext \
+     && ($dir/gettext --version >/dev/null 2>&1)
+  then
+    case `$dir/gettext --version 2>&1 | sed 1q` in
+      *GNU*) gettext_dir=$dir
+      set_echo=true
+      break ;;
+    esac
+  fi
+done
+
+if ${set_echo}
+then
+  set_echo=false
+  for dir in $PATH
+  do
+    if test -f $dir/shar \
+       && ($dir/shar --print-text-domain-dir >/dev/null 2>&1)
+    then
+      locale_dir=`$dir/shar --print-text-domain-dir`
+      set_echo=true
+      break
+    fi
+  done
+
+  if ${set_echo}
+  then
+    TEXTDOMAINDIR=$locale_dir
+    export TEXTDOMAINDIR
+    TEXTDOMAIN=sharutils
+    export TEXTDOMAIN
+    echo="$gettext_dir/gettext -s"
+  fi
+fi
+IFS="$save_IFS"
+if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null
+then if (echo -n test; echo 1,2,3) | grep n >/dev/null
+     then shar_n= shar_c='
+'
+     else shar_n=-n shar_c= ; fi
+else shar_n= shar_c='\c' ; fi
+if test ! -d ${lock_dir} ; then :
+else ${echo} "lock directory ${lock_dir} exists"
+     exit 1
+fi
+if mkdir ${lock_dir}
+then ${echo} "x - created lock directory ${lock_dir}."
+else ${echo} "x - failed to create lock directory ${lock_dir}."
+     exit 1
+fi
+# ============= mailprog.29176 ==============
+if test -n "${keep_file}" && test -f 'mailprog.29176'
+then
+${echo} "x - SKIPPING mailprog.29176 (file already exists)"
+
+else
+${echo} "x - extracting mailprog.29176 (text)"
+  sed 's/^X//' << 'SHAR_EOF' | uudecode &&
+begin 600 mailprog.29176
+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
+M^%]111555%%%%5544445551111555%%%%55444455531CT7_!_LVM&X`4```
+`
+end
+SHAR_EOF
+  chmod 0644 'mailprog.29176'
+if test $? -ne 0
+then ${echo} "restore of mailprog.29176 failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'mailprog.29176': 'MD5 check failed'
+       ) << \SHAR_EOF
+daea91dbc927b7ada93606734b1a8360  mailprog.29176
+SHAR_EOF
+
+else
+test `LC_ALL=C wc -c < 'mailprog.29176'` -ne 2655 && \
+  ${echo} "restoration warning:  size of 'mailprog.29176' is not 2655"
+  fi
+fi
+if rm -fr ${lock_dir}
+then ${echo} "x - removed lock directory ${lock_dir}."
+else ${echo} "x - failed to remove lock directory ${lock_dir}."
+     exit 1
+fi
+exit 0
+

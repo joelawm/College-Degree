@@ -1,0 +1,181 @@
+//KC03H0AA JOB ,'MEYER',MSGCLASS=H
+//JSTEP01 EXEC PGM=IGYCRCTL,REGION=0M,PARM=APOST
+//SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR
+//SYSIN    DD *
+      ****************************************************************
+      *                                                              *
+      * PROGRAM NAME:  INTRODUCTION TO COBOL                         *
+      *                                                              *
+      * FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN    *
+      *            WRITES THEM TO STANDARD OUTPUT.                   *
+      *                                                              *
+      * INPUT:     INFILE - THE INPUT DATA RECORDS READ IN.          *
+      *                                                              *
+      * OUTPUT:    OUTFILE - THE INPUT DATA RECORDS WRITTEN OUT.     *
+      *                                                              *
+      ****************************************************************
+
+       IDENTIFICATION DIVISION.
+
+       PROGRAM-ID.    COBPGM4.
+       AUTHOR.        JOE MEYER
+       DATE-WRITTEN.  03/07/2019.
+       DATE-COMPILED.
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+
+      * TAKE IN DATA FROM INPUT RECORDS *
+
+       FILE-CONTROL.
+
+           SELECT INPUT-FILE ASSIGN TO COBIN.
+           SELECT PRINT-FILE ASSIGN TO COBOUT.
+
+       DATA DIVISION.
+
+       FILE SECTION.
+
+       FD  INPUT-FILE
+           RECORDING MODE IS F.
+
+      * INPUT RECORDS FOR TAKING IN THE DATA *
+
+       01  INPUT-RECORD.
+           05  IN-BRANCH-NAME                  PIC X(25).
+           05  IN-BROKER-NAME                  PIC X(25).
+           05  IN-DEPOSIT-AMT                  PIC S9(8)V99.
+           05  FILLER                          PIC X(4).
+           05  COMM-PER-FLAG                   PIC Z.
+           05  FILLER                          PIC X(15).
+
+       FD  PRINT-FILE
+           RECORDING MODE IS F.
+
+       01  PRINT-RECORD                        PIC X(132).
+
+       WORKING-STORAGE SECTION.
+
+      * TAKING IN THE DATA TO PRINT THE TOTAL *
+
+       01  TOTAL-P.
+           05  TOTALPRINT                      PIC $$$,$$$,$$9.99.
+           05  FILLER                          PIC X(119) VALUE SPACES.
+
+      * THIS TAKES THE TOTAL AND ADDS IT TOGETHER *
+
+       01  EOF-FLAG                            PIC X VALUE 'N'.
+       01  VER.
+           05 TOTAL-DEPT-AMT                   PIC 9(9)V99 VALUE 0.
+
+      * THIS IS THE OUTPUT PART AND WHAT YOURE WRITING *
+
+       01  PRINT-LINE.
+           05  OUT-BRANCH-NAME                 PIC X(25).
+           05  FILLER                          PIC X(5)  VALUE SPACES.
+           05  OUT-BROKER-NAME                 PIC X(25).
+           05  FILLER                          PIC X(5)  VALUE SPACES.
+           05  OUT-DEPOSIT-AMOUNT              PIC $$$,$$$,$$9.99.
+           05  FILLER                          PIC X(5)  VALUE SPACES.
+           05  OUT-COMM-PER-FLAG               PIC Z9.
+           05  FILLER                          PIC X(47) VALUE SPACES.
+
+       PROCEDURE DIVISION.
+
+       0000-MAIN.
+
+           OPEN INPUT  INPUT-FILE
+                OUTPUT PRINT-FILE.
+
+      * SKIPS THE FIRST LINE FOR THE READ *
+
+           READ INPUT-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+             END-READ.
+
+      * THIS IS THE SECOND READ LOOP *
+
+           READ INPUT-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+
+           PERFORM 0100-WRITE-RECS
+             UNTIL EOF-FLAG = 'Y'.
+
+      * MOVING THE TOTALS TO PRINT LINE *
+
+           MOVE  TOTAL-DEPT-AMT TO TOTALPRINT.
+
+           WRITE PRINT-RECORD FROM TOTAL-P AFTER 4.
+
+           CLOSE INPUT-FILE
+                 PRINT-FILE.
+
+           GOBACK.
+
+       0000-EXIT. EXIT.
+
+      * THIS MOVES IN ALL THE DATA FOR THE MOVE-IN FUNCTIONS *
+
+       0100-WRITE-RECS.
+           COMPUTE TOTAL-DEPT-AMT ROUNDED = TOTAL-DEPT-AMT +
+           IN-DEPOSIT-AMT.
+           MOVE IN-BRANCH-NAME TO OUT-BRANCH-NAME.
+           MOVE IN-BROKER-NAME TO OUT-BROKER-NAME.
+           MOVE IN-DEPOSIT-AMT TO OUT-DEPOSIT-AMOUNT.
+           MOVE COMM-PER-FLAG  TO OUT-COMM-PER-FLAG.
+
+      * THIS WRITES OUT THE PRINT RECORDS *
+
+           WRITE PRINT-RECORD FROM PRINT-LINE AFTER 1.
+
+           READ INPUT-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+
+       0100-EXIT. EXIT.
+/*
+//SYSMDECK DD SPACE=(CYL,(1,1))
+//SYSUT1   DD SPACE=(CYL,(1,1))
+//SYSUT2   DD SPACE=(CYL,(1,1))
+//SYSUT3   DD SPACE=(CYL,(1,1))
+//SYSUT4   DD SPACE=(CYL,(1,1))
+//SYSUT5   DD SPACE=(CYL,(1,1))
+//SYSUT6   DD SPACE=(CYL,(1,1))
+//SYSUT7   DD SPACE=(CYL,(1,1))
+//SYSUT8   DD SPACE=(CYL,(1,1))
+//SYSUT9   DD SPACE=(CYL,(1,1))
+//SYSUT10  DD SPACE=(CYL,(1,1))
+//SYSUT11  DD SPACE=(CYL,(1,1))
+//SYSUT12  DD SPACE=(CYL,(1,1))
+//SYSUT13  DD SPACE=(CYL,(1,1))
+//SYSUT14  DD SPACE=(CYL,(1,1))
+//SYSUT15  DD SPACE=(CYL,(1,1))
+//SYSLIN   DD DSN=&&OBJMOD,SPACE=(CYL,(1,1)),DISP=(MOD,PASS)
+//SYSPRINT DD SYSOUT=*
+//JSTEP02  EXEC PGM=HEWL,COND=(0,LT)
+//*
+//SYSLIB   DD DSN=CEE.SCEELKED,DISP=SHR
+//*
+//SYSLIN   DD DSN=&&OBJMOD,DISP=(MOD,DELETE,DELETE)
+//*
+//SYSLMOD  DD DSN=KC03H0A.CSCI465.LOADLIB(ASSIGN4),
+//            SPACE=(1024,(50,20,1)),DSNTYPE=LIBRARY,
+//            DISP=(MOD,KEEP,KEEP)
+//*
+//SYSPRINT DD SYSOUT=*
+//*
+//JSTEP03  EXEC PGM=ASSIGN4,COND=(0,LT)
+//*
+//STEPLIB   DD DSN=KC03H0A.CSCI465.LOADLIB,DISP=SHR
+//*
+//COBIN     DD DSN=KC02322.CSCI465.DATASP19(DATA4),DISP=SHR
+//*
+//COBOUT    DD SYSOUT=*
+//*
+//SYSUDUMP  DD SYSOUT=*
+//
+//
+//
+//

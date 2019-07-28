@@ -1,0 +1,11 @@
+MariaDB [z1788150]> use z1788150;
+Database changed
+MariaDB [z1788150]> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [z1788150]> update Fall set data = 'data2B' where pk = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1788150]> update Fall set data = 'data12B' where pk = 1;
+ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction

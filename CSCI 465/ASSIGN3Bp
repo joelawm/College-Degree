@@ -1,0 +1,131 @@
+//KC03H0AA JOB ,'MEYER',MSGCLASS=H
+//JSTEP01 EXEC PGM=IGYCRCTL,REGION=0M,PARM=APOST
+//SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR
+//SYSIN    DD *
+      ****************************************************************
+      *                                                              *
+      * PROGRAM NAME:  COBPGM3                                       *
+      *                                                              *
+      * FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN    *
+      *            WRITES THEM TO STANDARD OUTPUT.                   *
+      *                                                              *
+      * INPUT:     INFILE - THE INPUT DATA RECORDS READ IN.          *
+      *                                                              *
+      * OUTPUT:    OUTFILE - THE INPUT DATA RECORDS WRITTEN OUT.     *
+      *                                                              *
+      ****************************************************************
+
+       IDENTIFICATION DIVISION.
+
+       PROGRAM-ID.    COBPGM3.
+       AUTHOR.        GEOFFREY D DECKER.
+       DATE-WRITTEN.  02/06/2019.
+       DATE-COMPILED.
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+
+       FILE-CONTROL.
+
+           SELECT INPUT-FILE ASSIGN TO COBIN.
+           SELECT PRINT-FILE ASSIGN TO COBOUT.
+
+       DATA DIVISION.
+
+       FILE SECTION.
+
+       FD  INPUT-FILE
+           RECORDING MODE IS F.
+
+       01  INPUT-RECORD                        PIC X(80).
+
+       FD  PRINT-FILE
+           RECORDING MODE IS F.
+
+       01  PRINT-RECORD                        PIC X(132).
+
+       WORKING-STORAGE SECTION.
+
+       01  EOF-FLAG                            PIC X VALUE 'N'.
+
+       01  PRINT-LINE.
+           05  OUTPUT-RECORD                   PIC X(80).
+           05  FILLER                          PIC X(52)  VALUE SPACES.
+
+       PROCEDURE DIVISION.
+
+       0000-MAIN.
+
+           OPEN INPUT  INPUT-FILE
+                OUTPUT PRINT-FILE.
+
+           READ INPUT-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+
+           PERFORM 0100-WRITE-RECS
+             UNTIL EOF-FLAG = 'Y'.
+
+           CLOSE INPUT-FILE
+                 PRINT-FILE.
+
+           GOBACK.
+
+       0000-EXIT. EXIT.
+
+       0100-WRITE-RECS.
+
+           MOVE INPUT-RECORD TO OUTPUT-RECORD.
+
+           WRITE PRINT-RECORD FROM PRINT-LINE AFTER 1.
+
+           READ INPUT-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+
+       0100-EXIT. EXIT.
+/*
+//SYSMDECK DD SPACE=(CYL,(1,1))
+//SYSUT1   DD SPACE=(CYL,(1,1))
+//SYSUT2   DD SPACE=(CYL,(1,1))
+//SYSUT3   DD SPACE=(CYL,(1,1))
+//SYSUT4   DD SPACE=(CYL,(1,1))
+//SYSUT5   DD SPACE=(CYL,(1,1))
+//SYSUT6   DD SPACE=(CYL,(1,1))
+//SYSUT7   DD SPACE=(CYL,(1,1))
+//SYSUT8   DD SPACE=(CYL,(1,1))
+//SYSUT9   DD SPACE=(CYL,(1,1))
+//SYSUT10  DD SPACE=(CYL,(1,1))
+//SYSUT11  DD SPACE=(CYL,(1,1))
+//SYSUT12  DD SPACE=(CYL,(1,1))
+//SYSUT13  DD SPACE=(CYL,(1,1))
+//SYSUT14  DD SPACE=(CYL,(1,1))
+//SYSUT15  DD SPACE=(CYL,(1,1))
+//SYSLIN   DD DSN=&&OBJMOD,SPACE=(CYL,(1,1)),DISP=(MOD,PASS)
+//SYSPRINT DD SYSOUT=*
+//JSTEP02  EXEC PGM=HEWL,COND=(0,LT)
+//*
+//SYSLIB   DD DSN=CEE.SCEELKED,DISP=SHR
+//*
+//SYSLIN   DD DSN=&&OBJMOD,DISP=(MOD,DELETE,DELETE)
+//*
+//SYSLMOD  DD DSN=KC03H0A.CSCI465.LOADLIB(ASSIGN3B),
+//            SPACE=(1024,(50,20,1)),DSNTYPE=LIBRARY,
+//            DISP=(MOD,KEEP,KEEP)
+//*
+//SYSPRINT DD SYSOUT=*
+//*
+//JSTEP03  EXEC PGM=ASSIGN3B,COND=(0,LT)
+//*
+//STEPLIB   DD DSN=KC03H0A.CSCI465.LOADLIB,DISP=SHR
+//*
+//COBIN     DD DSN=KC02322.CSCI465.DATASP19(DATA3),DISP=SHR
+//*
+//COBOUT    DD SYSOUT=*
+//*
+//SYSUDUMP  DD SYSOUT=*
+//
+//
+//
+//

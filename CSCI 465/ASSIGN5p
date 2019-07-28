@@ -1,0 +1,498 @@
+//KC03H0AA JOB ,'MEYER',MSGCLASS=H
+//JSTEP01 EXEC PGM=IGYCRCTL,REGION=0M,PARM=APOST
+//SYSIN   DD *
+      ****************************************************************
+      *                                                              *
+      * PROGRAM NAME:  COBOL                                         *
+      *                                                              *
+      * FUNCTION:  THIS PROGRAM READS INPUT DATA RECORDS AND THEN    *
+      *            WRITES THEM TO STANDARD OUTPUT.                   *
+      *                                                              *
+      * INPUT:     INFILE - THE INPUT DATA RECORDS READ IN.          *
+      *                                                              *
+      * OUTPUT:    OUTFILE - THE INPUT DATA RECORDS WRITTEN OUT.     *
+      *                                                              *
+      ****************************************************************
+
+       IDENTIFICATION DIVISION.
+
+       PROGRAM-ID.    COBPGM5.
+       AUTHOR.        JOE MEYER.
+       DATE-WRITTEN.  03/28/2019.
+       DATE-COMPILED.
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+
+      * TAKE IN DATA FROM INPUT RECORDS *
+
+       FILE-CONTROL.
+
+           SELECT SALES-FILE ASSIGN TO COBIN.
+           SELECT PRINT-FILE ASSIGN TO COBOUT.
+           SELECT HIGH-SALES-FILE ASSIGN TO HSFILE.
+
+       DATA DIVISION.
+
+       FILE SECTION.
+
+       FD  SALES-FILE
+           RECORDING MODE IS F.
+
+       01  FUND-RECORD.
+           05  SHARE-PRICE            PIC S9(3)V99.
+           05  MUTUAL-FUND-NAME       PIC X(25).
+           05  COMMISSION-PER-1       PIC S9(1)V9(5).
+           05  COMMISSION-PER-2       PIC S9(1)V9(5).
+           05  COMMISSION-PER-3       PIC S9(1)V9(5).
+           05  FILLER                 PIC X(32).
+
+       01  INPUT-RECORD.
+           05  IN-BRANCH-NAME         PIC X(25).
+           05  IN-BROKER-NAME         PIC X(25).
+           05  IN-DEPOSIT-AMT         PIC S9(8)V99.
+           05  FILLER                 PIC X(4).
+           05  COMM-FLG               PIC Z.
+           05  FILLER                 PIC X(15).
+
+       FD  PRINT-FILE
+           RECORDING MODE IS F.
+
+       01  PRINT-RECORD                        PIC X(132).
+
+       FD  HIGH-SALES-FILE
+           RECORDING MODE IS F.
+
+       01  HIGH-SALE-RECORD.
+           05 HIGH-SALES-BROKER                PIC X(25).
+           05 HIGH-SALES-SHR                   PIC 9(10)V9(4).
+
+       WORKING-STORAGE SECTION.
+
+       01  VARIABLES.
+           05  COUNT-LINE             PIC S9(2) BINARY SYNC
+                                      VALUE 99.
+           05  COUNT-PAGE             PIC S9(3) PACKED-DECIMAL
+                                      VALUE 0.
+           05  SHR-PRC                PIC S9(3)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  DEP-AMT                PIC S9(8)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  COMM-1                 PIC S9V9(5) PACKED-DECIMAL
+                                      VALUE 0.
+           05  COMM-2                 PIC S9V9(5) PACKED-DECIMAL
+                                      VALUE 0.
+           05  COMM-3                 PIC S9V9(5) PACKED-DECIMAL
+                                      VALUE 0.
+           05  SHR-PRICE              PIC S99V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  SHARES-SOLD            PIC S9(8)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  TOTAL-SHARES           PIC S9(8)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  TOTAL-COMM             PIC S9(8)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  TOTAL-SALES            PIC S9(8)V99 PACKED-DECIMAL
+                                      VALUE 0.
+           05  TOTAL-DEPT-AMT         PIC 9(9)V99 PACKED-DECIMAL
+                                                   VALUE 0.
+           05  TOTAL-NUM              PIC S9(3) PACKED-DECIMAL
+                                      VALUE 0.
+           05  TOTAL-AMT              PIC 9(9)V99 PACKED-DECIMAL
+                                                  VALUE 0.
+           05  BROKER-COMM            PIC 9(7)V99 PACKED-DECIMAL
+                                                      VALUE 0.
+           05  NUM-HIGH-BROKERS       PIC S9(3) PACKED-DECIMAL
+                                      VALUE 0.
+           05  HIGH-SALE-TOT          PIC 9(7)V99 PACKED-DECIMAL
+                                                      VALUE 0.
+
+
+       01  EOF-FLAG                   PIC X VALUE 'N'.
+
+       01  PRINT-LINE.
+           05  OUT-BRANCH-NAME        PIC X(25).
+           05  FILLER                 PIC X(9) VALUE SPACES.
+           05  OUT-BROKER-NAME        PIC X(25).
+           05  FILLER                 PIC X(9) VALUE SPACES.
+           05  OUT-DEPOSIT-AMOUNT     PIC $$$,$$$,$$9.99.
+           05  FILLER                 PIC X(16) VALUE SPACES.
+           05  OUT-SHARES-SOLD        PIC ZZ,ZZ9.9999.
+           05  FILLER                 PIC X(17) VALUE SPACES.
+           05  OUT-COMM-TOT           PIC $99.99.
+
+       01 PRINT-HEADER-1.
+           05  OUT-CURRENT-DATE.
+             10  CURRENT-YEAR         PIC 9(4).
+             10  FILLER               PIC X(1) VALUE '/'.
+             10  CURRENT-MONTH        PIC 9(2).
+             10  FILLER               PIC X(1) VALUE '/'.
+             10  CURRENT-DAY          PIC 9(2).
+           05  FILLER                 PIC X(44) VALUE SPACES.
+           05  OUT-MUTUAL-FUND        PIC X(25).
+           05  FILLER                 PIC X(46) VALUE SPACES.
+           05  FILLER                 PIC X(5) VALUE 'PAGE:'.
+           05  OUT-PAGE-NUM           PIC Z9.
+
+       01 PRINT-HEADER-2.
+           05 OUT-CURRENT-TIME.
+             10  CURRENT-HOUR         PIC 9(2).
+             10  FILLER               PIC X(1) VALUE ':'.
+             10  CURRENT-MINUTE       PIC 9(2).
+             10  FILLER               PIC X(1) VALUE ':'.
+             10  CURRENT-SECOND       PIC 9(2).
+           05  FILLER                 PIC X(39) VALUE SPACES.
+           05  FILLER                 PIC X(38) VALUE
+                             'BROKER DEPOSITS AND COMMISSIONS REPORT'.
+           05  FILLER                 PIC X(47) VALUE SPACES.
+
+       01 PRINT-HEADER-3.
+           05  FILLER                 PIC X(52) VALUE SPACES.
+           05  FILLER                 PIC X(20) VALUE
+                                      'DAY''S SHARE PRICE: '.
+           05  OUT-SHARE-PRICE        PIC $$$9.99.
+           05  FILLER                 PIC X(53) VALUE SPACES.
+
+
+       01 PRINT-HEADER-4.
+           05  FILLER                 PIC X(11) VALUE
+                                      'BRANCH NAME'.
+           05  FILLER                 PIC X(23) VALUE SPACES.
+           05  FILLER                 PIC X(13) VALUE
+                                      "BROKER'S NAME".
+           05  FILLER                 PIC X(21) VALUE SPACES.
+           05  FILLER                 PIC X(14) VALUE
+                                      'DEPOSIT AMOUNT'.
+           05  FILLER                 PIC X(16) VALUE SPACES.
+           05  FILLER                 PIC X(11) VALUE
+                                      'SHARES SOLD'.
+           05  FILLER                 PIC X(13) VALUE SPACES.
+           05  FILLER                 PIC X(10) VALUE
+                                      'COMMISSION'.
+       01 PRINT-HEADER-5.
+           05  FILLER                 PIC X(25) VALUE ALL '-'.
+           05  FILLER                 PIC X(9) VALUE SPACES.
+           05  FILLER                 PIC X(25) VALUE ALL '-'.
+           05  FILLER                 PIC X(9) VALUE SPACES.
+           05  FILLER                 PIC X(14) VALUE ALL '-'.
+           05  FILLER                 PIC X(9) VALUE SPACES.
+           05  FILLER                 PIC X(18) VALUE ALL '-'.
+           05  FILLER                 PIC X(9) VALUE SPACES.
+           05  FILLER                 PIC X(14) VALUE ALL '-'.
+
+       01 TOTALS-FOR-DAY.
+           05  FILLER                 PIC X(39) VALUE SPACES.
+           05  FILLER                 PIC X(15) VALUE
+                                      'NUMBER OF SALES'.
+           05  FILLER                 PIC X(8) VALUE SPACES.
+           05  FILLER                 PIC X(20) VALUE
+                                      'TOTAL DEPOSIT AMOUNT'.
+           05  FILLER                 PIC X(10) VALUE SPACES.
+           05  FILLER                 PIC X(17) VALUE
+                                      'TOTAL SHARES SOLD'.
+           05  FILLER                 PIC X(7) VALUE SPACES.
+           05  FILLER                 PIC X(16) VALUE
+                                      'TOTAL COMMISSION'.
+
+       01 TOTALS-FOR-DAY-1.
+           05  FILLER                 PIC X(39) VALUE SPACES.
+           05  FILLER                 PIC X(15) VALUE ALL '-'.
+           05  FILLER                 PIC X(8) VALUE SPACES.
+           05  FILLER                 PIC X(20) VALUE ALL '-'.
+           05  FILLER                 PIC X(7) VALUE SPACES.
+           05  FILLER                 PIC X(20) VALUE ALL '-'.
+           05  FILLER                 PIC X(6) VALUE SPACES.
+           05  FILLER                 PIC X(18)  VALUE ALL '-'.
+
+       01 TOTALS-FOR-DAY-2.
+           05  FILLER                 PIC X(51) VALUE SPACES.
+           05  OUT-NUM-SALES          PIC ZZZ9.
+           05  FILLER                 PIC X(15) VALUE SPACES.
+           05  OUT-TOT-DEP            PIC $$$,$$$,$$9.99.
+           05  FILLER                 PIC X(16) VALUE SPACES.
+           05  OUT-TOT-SHARE          PIC ZZ,ZZ9.9999.
+           05  FILLER                 PIC X(12) VALUE SPACES.
+           05  OUT-TOT-COMM           PIC $$,$$9.99.
+
+       01 PRINT-HIGH-SALES.
+           05  FILLER                 PIC X(37) VALUE SPACES.
+           05  FILLER                 PIC X(22) VALUE
+                                      "HIGH SALES BROKER NAME".
+           05  FILLER                 PIC X(14) VALUE SPACES.
+           05  FILLER                 PIC X(22) VALUE
+                                      "HIGH SALES SHARES SOLD".
+           05  FILLER                 PIC X(37) VALUE SPACES.
+
+       01 PRINT-HIGH-SALES-1.
+           05  FILLER                 PIC X(37) VALUE SPACES.
+           05  FILLER                 PIC X(25) VALUE ALL '-'.
+           05  FILLER                 PIC X(10) VALUE SPACES.
+           05  FIILER                 PIC X(23) VALUE ALL '-'.
+           05  FILLER                 PIC X(37) VALUE SPACES.
+
+       01 PRINT-HIGH-SALES-2.
+           05  FILLER                 PIC X(37) VALUE SPACES.
+           05  OUT-HIGH-BROKER        PIC X(25).
+           05  FILLER                 PIC X(22) VALUE SPACES.
+           05  OUT-HIGH-SHARES        PIC ZZ,ZZ9.9999.
+           05  FILLER                 PIC X(39) VALUE SPACES.
+
+      * TAKING IN THE DATA TO PRINT THE TOTAL *
+
+       01 TOTAL-1.
+           05  FILLER                 PIC X(31) VALUE SPACES.
+           05  FILLER                 PIC X(28) VALUE
+                                      'NUMBER OF HIGH SALES BROKERS'.
+           05  FILLER                 PIC X(8) VALUE SPACES.
+           05  FILLER                 PIC X(28) VALUE
+                                      'TOTAL HIGH SALES SHARES SOLD'.
+           05  FILLER                 PIC X(37) VALUE SPACES.
+
+       01 TOTAL-2.
+           05  FILLER                 PIC X(31) VALUE SPACES.
+           05  FILLER                 PIC X(28) VALUE ALL '-'.
+           05  FILLER                 PIC X(7) VALUE SPACES.
+           05  FILLER                 PIC X(29) VALUE ALL '-'.
+           05  FILLER                 PIC X(37) VALUE SPACES.
+
+       01 TOTAL-3.
+           05  FILLER                 PIC X(55) VALUE SPACES.
+           05  OUT-NUM                PIC ZZZ9.
+           05  FILLER                 PIC X(25) VALUE SPACES.
+           05  OUT-SHARES             PIC ZZ,ZZ9.9999.
+           05  FILLER                 PIC X(37) VALUE SPACES.
+
+       01 CURRENT-DATE-FIELDS.
+           05  CURRENT-DATE.
+             10  CURRENT-YEAR         PIC 9(4).
+             10  CURRENT-MONTH        PIC 9(2).
+             10  CURRENT-DAY          PIC 9(2).
+           05 CURRENT-TIME.
+             10  CURRENT-HOUR         PIC 9(2).
+             10  CURRENT-MINUTE       PIC 9(2).
+             10  CURRENT-SECOND       PIC 9(2).
+             10  CURRENT-MS           PIC 9(2).
+           05 DIFF-FROM-GMT           PIC S9(4).
+
+       PROCEDURE DIVISION.
+
+       0000-MAIN.
+
+           PERFORM 0100-GET-DATE-AND-TIME.
+
+           OPEN INPUT  SALES-FILE
+                OUTPUT HIGH-SALES-FILE
+                OUTPUT PRINT-FILE.
+
+      * SKIPS THE FIRST LINE FOR THE READ *
+
+           READ SALES-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+             END-READ.
+
+           IF EOF-FLAG = 'N'
+
+             PERFORM 0200-PROCESS-FUND-RECORD
+
+             READ SALES-FILE
+               AT END MOVE 'Y' TO EOF-FLAG
+             END-READ
+
+             PERFORM 0300-PROCESS-SALES-RECORD
+               UNTIL EOF-FLAG = 'Y'
+
+             PERFORM 0400-PROCESS-SALES-TOTALS
+
+             CLOSE SALES-FILE
+                   HIGH-SALES-FILE
+
+             OPEN INPUT HIGH-SALES-FILE
+
+             MOVE 99 TO COUNT-LINE
+             MOVE 0 TO COUNT-PAGE
+
+             MOVE 'N' TO EOF-FLAG
+
+             READ HIGH-SALES-FILE
+               AT END MOVE 'Y' TO EOF-FLAG
+             END-READ
+
+             PERFORM 0700-HIGH-SALES-PRINT
+               UNTIL EOF-FLAG = 'Y'
+
+             PERFORM 0600-PROCESS-HIGH-SALES-TOTALS
+
+             CLOSE HIGH-SALES-FILE
+                   PRINT-FILE
+
+           END-IF.
+           GOBACK.
+
+       0000-EXIT. EXIT.
+
+       0100-GET-DATE-AND-TIME.
+           MOVE FUNCTION CURRENT-DATE TO CURRENT-DATE-FIELDS.
+           MOVE CORRESPONDING CURRENT-DATE TO OUT-CURRENT-DATE.
+           MOVE CORRESPONDING CURRENT-TIME  TO OUT-CURRENT-TIME.
+       0100-EXIT. EXIT.
+
+       0200-PROCESS-FUND-RECORD.
+           MOVE COMMISSION-PER-1 TO COMM-1.
+           MOVE COMMISSION-PER-2 TO COMM-2.
+           MOVE COMMISSION-PER-3 TO COMM-3.
+           MOVE SHARE-PRICE TO SHR-PRICE.
+           MOVE SHARE-PRICE TO OUT-SHARE-PRICE.
+           MOVE MUTUAL-FUND-NAME TO OUT-MUTUAL-FUND.
+       0200-EXIT. EXIT.
+
+       0300-PROCESS-SALES-RECORD.
+           MOVE IN-BRANCH-NAME TO OUT-BRANCH-NAME.
+           MOVE IN-BROKER-NAME TO OUT-BROKER-NAME.
+           MOVE IN-DEPOSIT-AMT TO OUT-DEPOSIT-AMOUNT.
+           MOVE IN-DEPOSIT-AMT TO DEP-AMT.
+
+           IF COMM-FLG = 1
+             COMPUTE BROKER-COMM ROUNDED = DEP-AMT / COMM-1.
+           IF COMM-FLG = 2
+             COMPUTE BROKER-COMM ROUNDED = DEP-AMT / COMM-2.
+           IF COMM-FLG = 3
+             COMPUTE BROKER-COMM ROUNDED = DEP-AMT / COMM-3.
+
+           COMPUTE SHARES-SOLD = DEP-AMT / SHR-PRICE.
+           COMPUTE TOTAL-AMT = TOTAL-AMT + DEP-AMT.
+           COMPUTE TOTAL-SHARES = TOTAL-SHARES + SHARES-SOLD.
+           COMPUTE TOTAL-COMM = TOTAL-COMM + BROKER-COMM.
+
+           ADD 1 TO TOTAL-NUM.
+
+           MOVE SHARES-SOLD TO OUT-SHARES-SOLD.
+           MOVE BROKER-COMM TO OUT-COMM-TOT.
+
+           IF COUNT-LINE >= 17
+             ADD 1 TO COUNT-PAGE
+             MOVE COUNT-PAGE TO OUT-PAGE-NUM
+             WRITE PRINT-RECORD FROM PRINT-HEADER-1 AFTER PAGE
+             WRITE PRINT-RECORD FROM PRINT-HEADER-2 AFTER 1
+             WRITE PRINT-RECORD FROM PRINT-HEADER-3 AFTER 2
+             WRITE PRINT-RECORD FROM PRINT-HEADER-4 AFTER 2
+             WRITE PRINT-RECORD FROM PRINT-HEADER-5 AFTER 1
+             MOVE 0 TO COUNT-LINE
+           END-IF.
+
+           IF SHARES-SOLD >= 1000
+             PERFORM 0500-PROCESS-HIGH-SALES-RECORD.
+
+           WRITE PRINT-RECORD FROM PRINT-LINE AFTER 2.
+           ADD 1 TO COUNT-LINE.
+
+           READ SALES-FILE
+             AT END MOVE 'Y' TO EOF-FLAG
+           END-READ.
+       0300-EXIT. EXIT.
+
+       0400-PROCESS-SALES-TOTALS.
+
+           MOVE TOTAL-NUM TO OUT-NUM-SALES.
+           MOVE TOTAL-AMT TO OUT-TOT-DEP.
+           MOVE TOTAL-SHARES TO OUT-TOT-SHARE.
+           MOVE BROKER-COMM TO OUT-TOT-COMM.
+
+           WRITE PRINT-RECORD FROM PRINT-HEADER-1 AFTER PAGE.
+           WRITE PRINT-RECORD FROM PRINT-HEADER-2 AFTER 1.
+           WRITE PRINT-RECORD FROM PRINT-HEADER-3 AFTER 2.
+           WRITE PRINT-RECORD FROM TOTALS-FOR-DAY AFTER 2.
+           WRITE PRINT-RECORD FROM TOTALS-FOR-DAY-1 AFTER 2.
+           WRITE PRINT-RECORD FROM TOTALS-FOR-DAY-2 AFTER 1.
+       0400-EXIT. EXIT.
+
+       0500-PROCESS-HIGH-SALES-RECORD.
+           MOVE IN-BROKER-NAME TO HIGH-SALES-BROKER.
+           MOVE SHARES-SOLD TO HIGH-SALES-SHR.
+
+           WRITE HIGH-SALE-RECORD AFTER 2.
+       0500-EXIT. EXIT.
+
+       0600-PROCESS-HIGH-SALES-TOTALS.
+           MOVE NUM-HIGH-BROKERS TO OUT-NUM.
+           MOVE HIGH-SALE-TOT TO OUT-SHARES.
+
+           ADD 1 TO COUNT-PAGE
+           MOVE COUNT-PAGE TO OUT-PAGE-NUM
+
+           WRITE PRINT-RECORD FROM PRINT-HEADER-1 AFTER PAGE
+           WRITE PRINT-RECORD FROM PRINT-HEADER-2 AFTER 1
+           WRITE PRINT-RECORD FROM PRINT-HEADER-3 AFTER 2
+           WRITE PRINT-RECORD FROM TOTAL-1 AFTER 2.
+           WRITE PRINT-RECORD FROM TOTAL-2 AFTER 2.
+           WRITE PRINT-RECORD FROM TOTAL-3 AFTER 1.
+       0600-EXIT. EXIT.
+
+       0700-HIGH-SALES-PRINT.
+           MOVE HIGH-SALES-BROKER TO OUT-HIGH-BROKER.
+           MOVE HIGH-SALES-SHR TO OUT-HIGH-SHARES.
+
+           IF COUNT-LINE >= 16
+             ADD 1 TO COUNT-PAGE
+             MOVE COUNT-PAGE TO OUT-PAGE-NUM
+             WRITE PRINT-RECORD FROM PRINT-HEADER-1 AFTER PAGE
+             WRITE PRINT-RECORD FROM PRINT-HEADER-2 AFTER 1
+             WRITE PRINT-RECORD FROM PRINT-HEADER-3 AFTER 2
+             WRITE PRINT-RECORD FROM PRINT-HIGH-SALES AFTER 2
+             WRITE PRINT-RECORD FROM PRINT-HIGH-SALES-1 AFTER 1
+             MOVE 0 TO COUNT-LINE
+           END-IF.
+
+           WRITE PRINT-RECORD FROM PRINT-HIGH-SALES-2 AFTER 2.
+           READ HIGH-SALES-FILE
+               AT END MOVE 'Y' TO EOF-FLAG
+             END-READ.
+
+           COMPUTE HIGH-SALE-TOT ROUNDED = HIGH-SALE-TOT +
+                             HIGH-SALES-SHR.
+
+           ADD 1 TO COUNT-LINE.
+           ADD 1 TO NUM-HIGH-BROKERS.
+       0700-EXIT. EXIT.
+/*
+//SYSMDECK DD SPACE=(CYL,(1,1))
+//SYSUT1   DD SPACE=(CYL,(1,1))
+//SYSUT2   DD SPACE=(CYL,(1,1))
+//SYSUT3   DD SPACE=(CYL,(1,1))
+//SYSUT4   DD SPACE=(CYL,(1,1))
+//SYSUT5   DD SPACE=(CYL,(1,1))
+//SYSUT6   DD SPACE=(CYL,(1,1))
+//SYSUT7   DD SPACE=(CYL,(1,1))
+//SYSUT8   DD SPACE=(CYL,(1,1))
+//SYSUT9   DD SPACE=(CYL,(1,1))
+//SYSUT10  DD SPACE=(CYL,(1,1))
+//SYSUT11  DD SPACE=(CYL,(1,1))
+//SYSUT12  DD SPACE=(CYL,(1,1))
+//SYSUT13  DD SPACE=(CYL,(1,1))
+//SYSUT14  DD SPACE=(CYL,(1,1))
+//SYSUT15  DD SPACE=(CYL,(1,1))
+//SYSLIN   DD DSN=&&OBJMOD,SPACE=(CYL,(1,1)),DISP=(MOD,PASS)
+//SYSPRINT DD SYSOUT=*
+//JSTEP02  EXEC PGM=HEWL,COND=(0,LT)
+//*
+//SYSLIB   DD DSN=CEE.SCEELKED,DISP=SHR
+//*
+//SYSLIN   DD DSN=&&OBJMOD,DISP=(MOD,DELETE,DELETE)
+//*
+//SYSLMOD  DD DSN=KC03H0A.CSCI465.LOADLIB(ASSIGN5),
+//            SPACE=(1024,(50,20,1)),DSNTYPE=LIBRARY,
+//            DISP=(MOD,KEEP,KEEP)
+//*
+//SYSPRINT DD SYSOUT=*
+//*
+//JSTEP03  EXEC PGM=ASSIGN5,COND=(0,LT)
+//*
+//STEPLIB   DD DSN=KC03H0A.CSCI465.LOADLIB,DISP=SHR
+//*
+//COBIN     DD DSN=KC02322.CSCI465.DATASP19(DATA5),DISP=SHR
+//*
+//COBOUT    DD SYSOUT=*
+//HSFILE    DD SPACE=(TRK,(1,1)),DISP=(MOD,DELETE,DELETE)
+//*
+//SYSUDUMP  DD SYSOUT=*
+//
