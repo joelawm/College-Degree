@@ -142,13 +142,13 @@ None.
 
 ###### Assignments
 1. Exam 1 Study Guide
-    - Goes throug
+    - Goes through Unicode and 
 2. Exam 2 Study Guide
-    - Goes through
+    - Goes through Basic logic on a CPU and other logic components.
 3. Exam 3 Study Guide
-    - Goes through
+    - Goes through a system memory address and calculating speed and timings.
 4. Final Study Guide
-    - Goes through
+    - Goes through goes throught everything before but also USB and other interfaces.
     
 ## CSCI 465 : Enterprise Application Enviroments
 Instructor: Geoffrey Decker
@@ -200,25 +200,37 @@ SQL, PHP, C++
 10. Assignment 12
     - This is the exact same assignment as 11 but done in C++.
     
-## CSCI 467 : Introduction to Software Engineering :: HAVE NOT TAKEN YET 
-Instructor:
+## CSCI 467 : Introduction to Software Engineering
+Instructor: Raimund Ege
 ###### Overview
-Computer Science 467.
+Computer Science 467 was primarily learning about how we can use various methods of SCRUM to be able to facilitate learning and group collboration. At the end of the year we were told to put together a application using a real hosted server to allow people to look at a fake company transcation logs
 
 ###### Languages
+CSS, HTML, Javascript.
 
+###### Assignments
+1. Final Project
+    - Built in Javascript and HTML we put together the backend system of editing transcation logs.
+
+## CSCI 473 : .Net Development : TAKING RIGHT NOW
+Instructor:
+###### Overview
+Computer Science 473.
+
+###### Languages
+C#
 
 ###### Assignments
 1. Assignment 1
     - Temporary.
 
-## CSCI 480 : Principles of Operating Systems :: HAVE NOT TAKEN YET
-Instructor:
+## CSCI 480 : Principles of Operating Systems
+Instructor: Harry Hutchins
 ###### Overview
 Computer Science 480.
 
 ###### Languages
-
+C++
 
 ###### Assignments
 1. Assignment 1
