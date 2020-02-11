@@ -160,15 +160,19 @@ Cobol, JCL, IBM Assembler
 
 ###### Assignments
 1. Assignment 1
+	- Start a assembler program.
 2. Assignment 2
+	- Load in datasets from mainframe and display the output.
 3. Assignment 3
+	- Use of Cobol and Assembler to reacreate in and out of pulling of files.
 4. Assignment 4
+	- Same thing as assignmnet 3 but a bit more complicated.
 5. Assignment 5
+	- Another iteration of assignment 4 but even more code added.
 6. Assignment 6
+	- Use of assembler in code to move around data in files.
 7. Assignment 7
-8. Assignment 8
-9. Assignment 9
-10. Assignment 10
+	- A copy of assignmnet 6 but completely rewritten in Cobol.
     
 ## CSCI 466 : Databases
 Instructor: Georgia Brown
@@ -234,7 +238,22 @@ C++
 
 ###### Assignments
 1. Assignment 1
-    - Temporary.
+    - This is a demonstartion of the use of fork in a program.
+2. Assignment 2
+    - This is a demonstartion of the use of fork and pipe in a Linux box.
+3. Assignment 3
+    - This is a demonstartion of the use of fork, pipe and dup in a Linux box as well as file IO.
+4. Assignment 4
+    - This is a demonstartion of the use of priority scheduling.
+5. Assignment 5
+    - This is a demonstartion of the use of producer and consumer problem.
+6. Assignment 6
+    - This is a demonstartion of the use of best fit and first fit problem.
+7. Assignment 7
+    - This is a demonstartion of the use of FAT Table and how it works.
+
+
+#Outside of School Coding
 
 ## Udemy Machine Learning A-Z
 Instructor: Krill
