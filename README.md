@@ -253,7 +253,7 @@ C++
     - This is a demonstartion of the use of FAT Table and how it works.
 
 
-##-----Outside of School Coding-----
+## -----Outside of School Coding-----
 
 ## Udemy Machine Learning A-Z
 Instructor: Krill
