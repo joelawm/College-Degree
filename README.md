@@ -216,7 +216,7 @@ CSS, HTML, Javascript.
 1. Final Project
     - Built in Javascript and HTML we put together the backend system of editing transcation logs.
 
-## CSCI 473 : .Net Development : TAKING RIGHT NOW
+## CSCI 473 : .Net Development
 Instructor:
 ###### Overview
 Computer Science 473.
@@ -226,7 +226,15 @@ C#
 
 ###### Assignments
 1. Assignment 1
-    - Temporary.
+    - A basic command line program to allow user to search for people in a text file 'database'.
+2. Assignment 2
+    - Essentially the same program as assignment 1 but this time utilizing the GUI forms in the .Net library.
+3. Assignment 3
+    - Additions that are added on to assignment 2 but with more added complextity.
+4. Assignment 4
+    - While similar to assigments 1-3 this adds to it significantly by allowing users to use a google maps like interface to find properties.
+5. Assignment 5
+    - A recreation of the game Chess in a C# forms application.
 
 ## CSCI 480 : Principles of Operating Systems
 Instructor: Harry Hutchins
