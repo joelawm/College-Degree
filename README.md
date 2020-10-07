@@ -1,5 +1,5 @@
 # College Degree and outside of school learning
-This reposirty contains all 4 years of my Undergraduate degree at NIU for Computer Sceince. This reposirty also contains anything I worked on outside of school, so YouTube Series, Udemy Courses, non-security enfringing work documents, and general reading. If you're looking at this, this will let you know a small part of what I have done in my life. All my other repositories are based around projects I have been working on.
+This reposirty contains all 4 years of my Undergraduate degree at NIU for Computer Sceince. If you're looking at this, this will let you know a small part of what I have done in my life. All my other repositories are based around projects I have been working on.
 
 ## CSCI 240 : Computer Prgrogramming in C++
 Instructor: Amy Byrnes
