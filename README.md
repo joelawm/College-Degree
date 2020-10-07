@@ -217,9 +217,9 @@ CSS, HTML, Javascript.
     - Built in Javascript and HTML we put together the backend system of editing transcation logs.
 
 ## CSCI 473 : .Net Development
-Instructor:
+Instructor: Daniel Rogness
 ###### Overview
-Computer Science 473.
+Computer Science 473 goes more indpeth about enterprise use cases for OOP along with teaching the fundamentals for C# and its familarities to Java.
 
 ###### Languages
 C#
